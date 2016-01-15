@@ -40,6 +40,7 @@ public class NotificationBrokerClient {
   private org.tmforum.mtop.fmw.xsd.gen.v1.ObjectFactory genFactory = new org.tmforum.mtop.fmw.xsd.gen.v1.ObjectFactory();
 
 
+
   public <T> void generateSubscriberMessages() throws DatatypeConfigurationException {
     Notify notify = new Notify();
     notify.setTopic("Inventory");
