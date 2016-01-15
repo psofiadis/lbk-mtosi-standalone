@@ -13,14 +13,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.tmforum.mtop.fmw.wsdl.notb.v1_0.NotificationBroker;
-import org.tmforum.mtop.fmw.wsdl.notb.v1_0.NotificationBrokerHttp;
 import org.tmforum.mtop.fmw.xsd.cei.v1.CommonEventInformationType;
 import org.tmforum.mtop.fmw.xsd.gen.v1.AnyListType;
 import org.tmforum.mtop.fmw.xsd.hdr.v1.CommunicationPatternType;
 import org.tmforum.mtop.fmw.xsd.hdr.v1.CommunicationStyleType;
 import org.tmforum.mtop.fmw.xsd.hdr.v1.Header;
-//import org.tmforum.mtop.fmw.xsd.notmsg.v1.ObjectFactory;
-//import org.tmforum.mtop.fmw.xsd.cei.v1.ObjectFactory;
 import org.tmforum.mtop.fmw.xsd.hdr.v1.MessageTypeType;
 import org.tmforum.mtop.fmw.xsd.notmsg.v1.Notify;
 
@@ -43,7 +40,7 @@ public class NotificationBrokerClient {
   private org.tmforum.mtop.fmw.xsd.gen.v1.ObjectFactory genFactory = new org.tmforum.mtop.fmw.xsd.gen.v1.ObjectFactory();
 
 
-  public <T> void generateSubscriberMessages() throws DatatypeConfigurationException{
+  public <T> void generateSubscriberMessages() throws DatatypeConfigurationException {
     Notify notify = new Notify();
     notify.setTopic("Inventory");
     Notify.Message message = notmsgFactory.createNotifyMessage();
@@ -72,7 +69,7 @@ public class NotificationBrokerClient {
     XMLGregorianCalendar xc = DatatypeFactory.newInstance().newXMLGregorianCalendar(gc);
     commonEventInformationType.setSourceTime(xc);
     AnyListType anyListType = genFactory.createAnyListType();
-    JAXBElement<T> je = new JAXBElement<>(new QName("adva.tmf864ext.v1", "alarmType"), (Class<T>)String.class, (T)"test");
+    JAXBElement<T> je = new JAXBElement<>(new QName("adva.tmf864ext.v1", "alarmType"), (Class<T>) String.class, (T) "test");
     anyListType.getAny().add(je);
     commonEventInformationType.setVendorExtensions(anyListType);
 
@@ -88,8 +85,8 @@ public class NotificationBrokerClient {
     header.setCommunicationStyle(CommunicationStyleType.RPC);
     header.setRequestedBatchSize(0L);
 
-    notificationBrokerBean.notify( header, notify );
-}
+    notificationBrokerBean.notify(header, notify);
+  }
 
 
 }
