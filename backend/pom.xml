@@ -107,7 +107,7 @@
                 <executions>
                     <execution>
                         <id>copy-artifact</id>
-                        <phase>package</phase>
+                        <phase>prepare-package</phase>
                         <goals>
                             <goal>copy</goal>
                         </goals>
@@ -116,7 +116,7 @@
                                 <artifactItem>
                                     <groupId>com.adva.nbi</groupId>
                                     <artifactId>frontend</artifactId>
-                                    <version>1.0</version>
+                                    <version>1.0-SNAPSHOT</version>
                                     <type>jar</type>
                                 </artifactItem>
                             </artifactItems>
