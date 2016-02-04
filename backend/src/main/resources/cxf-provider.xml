@@ -6,8 +6,12 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:endpoint id="notifyProviderBean"
-                    implementor="com.adva.mtosi.server.NotificationBrokerImpl"
-                    address="/lbk/NotificationBrokerImpl">
+                    implementor="com.adva.mtosi.server.NotificationConsumerImpl"
+                    address="/NotificationConsumerImpl">
+
+        <jaxws:features>
+            <bean class="org.apache.cxf.feature.LoggingFeature"/>
+        </jaxws:features>
     </jaxws:endpoint>
 
 </beans>
