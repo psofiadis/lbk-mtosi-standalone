@@ -9,9 +9,10 @@
 package init;
 
 import com.adva.mtosi.server.config.WebServer;
+import com.adva.mtosi.server.config.WebServerJar;
 
 public class Main {
     public static void main(String[] args) throws Exception{
-        new WebServer(9090).start();
+        new WebServerJar(9090).start();
     }
 }

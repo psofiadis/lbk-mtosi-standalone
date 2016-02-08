@@ -17,6 +17,12 @@ import org.tmforum.mtop.fmw.xsd.hdr.v1.Header;
 import org.tmforum.mtop.fmw.xsd.notmsg.v1.Notify;
 import org.tmforum.mtop.nra.xsd.alm.v1.AlarmType;
 
+
+@javax.jws.WebService(
+        serviceName = "NotificationConsumerHttp",
+        portName = "NotificationConsumerSoapHttp",
+        targetNamespace = "http://www.tmforum.org/mtop/fmw/wsdl/notc/v1-0",
+        endpointInterface = "org.tmforum.mtop.fmw.wsdl.notc.v1_0.NotificationConsumer")
 public class NotificationConsumerImpl implements NotificationConsumer{
   private static final Logger log = Logger.getLogger(NotificationConsumerImpl.class);
 
