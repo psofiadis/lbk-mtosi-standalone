@@ -35,13 +35,13 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.lang.ref.WeakReference;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.*;
 import javax.swing.table.TableModel;
 
+import com.adva.mtosi.gui.beans.Notification;
 import com.jgoodies.binding.adapter.AbstractTableAdapter;
 
 
@@ -135,9 +135,9 @@ public final class TutorialUtils {
             Component component = super.getListCellRendererComponent(list,
                     value, index, isSelected, cellHasFocus);
 
-//            Notification album = (Notification) value;
-//            setText(album == null ? "" : (" " + album.getTitle()));
-            setText("Ttt");
+            Notification album = (Notification) value;
+            setText(album == null ? "" : (" " + album.getSeverity()));
+//            setText("Ttt");
             return component;
         }
     }
@@ -148,25 +148,31 @@ public final class TutorialUtils {
     /**
      * Describes how to present an Notification in a JTable.
      */
-    private static final class AlbumTableModel extends AbstractTableAdapter {
+    public static final class AlbumTableModel extends AbstractTableAdapter {
         
-        private static final String[] COLUMNS = {"Artist", "Title", "Classical", "Composer"};
-        
+        private static final String[] COLUMNS = {"Category", "Severity", "Security", "Impairment"};
+        private final ListModel listModel;
         private AlbumTableModel(ListModel listModel) {
             super(listModel, COLUMNS);
+            this.listModel = listModel;
         }
-        
+
+        @Override
+        public ListModel getListModel() {
+            return listModel;
+        }
+
         public Object getValueAt(int rowIndex, int columnIndex) {
-//            Notification album = (Notification) getRow(rowIndex);
-//            switch (columnIndex) {
-//                case 0 : return album.getArtist();
-//                case 1 : return album.getTitle();
-//                case 2 : return Boolean.valueOf(album.isClassical());
-//                case 3 : return album.isClassical() ? album.getComposer() : "";
-//                default :
-//                    throw new IllegalStateException("Unknown column");
-//            }
-            return new String("Test");
+            Notification album = (Notification) getRow(rowIndex);
+            switch (columnIndex) {
+                case 0 : return album.getCategory();
+                case 1 : return album.getSeverity();
+                case 2 : return Boolean.valueOf(album.isSecurity());
+                case 3 : return album.isSecurity() ? album.getImpairment() : "";
+                default :
+                    throw new IllegalStateException("Unknown column");
+            }
+//            return new String("Test");
         }
         
     }

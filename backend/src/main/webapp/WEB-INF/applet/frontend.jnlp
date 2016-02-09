@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jnlp spec="1.0+" codebase="" href="">
     <information>
-        <title>Notification monitoring applet</title>
+        <severity>Notification monitoring applet</severity>
         <vendor>Adva Optical Networking.</vendor>
         <offline-allowed/>
     </information>

@@ -30,6 +30,7 @@
 
 package com.adva.mtosi.gui.beans;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -62,71 +63,82 @@ public class Notification extends Model {
     /** An example Notification. */
     public static final Notification NOTIFICATION_4 = createExample4();
     
-    /** A List of Albums made of the examples 1 to 4. */
-    public static final List ALBUMS = Arrays.asList(new Notification[]{
-            NOTIFICATION_1, NOTIFICATION_2, NOTIFICATION_3, NOTIFICATION_4});
-    
-    
+//    /** A List of Albums made of the examples 1 to 4. */
+//    public static final List NOTIFICATIONS =  Arrays.asList(new Notification[]{
+//            NOTIFICATION_1, NOTIFICATION_2, NOTIFICATION_3, NOTIFICATION_4});
+
+    public static final List<Notification> NOTIFICATIONS = new ArrayList(){{
+        add(new Notification("","",false,""));
+    }};
+
+
     // Names of the Bound Bean Properties *************************************
 
-    public static final String PROPERTYNAME_ARTIST    = "artist";
-    public static final String PROPERTYNAME_CLASSICAL = "classical";
-    public static final String PROPERTYNAME_COMPOSER  = "composer";
-    public static final String PROPERTYNAME_TITLE     = "title";
+    public static final String PROPERTYNAME_CATEGORY = "category";
+    public static final String PROPERTYNAME_SECURITY = "security";
+    public static final String PROPERTYNAME_IMPAIRMENT = "impairment";
+    public static final String PROPERTYNAME_SEVERITY = "severity";
     
     
     // Instance Fields ********************************************************
     
     /**
-     * This Notification's title as associated with its ISBN,
+     * This Notification's severity as associated with its ISBN,
      * for example "Symphony No. 5".
      */
-    private String title;
+    private String severity;
     
     /**
-     * Holds this Notification's artist, for example: "Albert Ayler",
+     * Holds this Notification's category, for example: "Albert Ayler",
      * or "Berliner Philharmoniker".
      */
-    private String artist;
+    private String category;
 
     /**
-     * Describes if this Notification is classical music; in this case
-     * it has a composer.
+     * Describes if this Notification is security music; in this case
+     * it has a impairment.
      */
-    private boolean classical;
+    private boolean security;
     
     /**
-     * Holds the composer of this Notification's music, for example "Beethoven".
-     * Available if and only if this is a classical album.
+     * Holds the impairment of this Notification's music, for example "Beethoven".
+     * Available if and only if this is a security album.
      */
-    private String composer;
+    private String impairment;
     
 
     // Instance Creation ******************************************************
     
     /**
-     * Constructs an empty Notification: empty title and artist, not classical
-     * and no composer set.
+     * Constructs an empty Notification: empty severity and category, not security
+     * and no impairment set.
      */
     public Notification() {
         this("", "");
 
     }
-    
-    
-    private Notification(String title, String artist) {
-        setTitle(title);
-        setArtist(artist);
-        setClassical(false);
-        setComposer(null);
+
+    public Notification(String severity, String category, Boolean security, String impairment) {
+        setSeverity(severity);
+        setCategory(category);
+        setSecurity(security);
+        setImpairment(impairment);
     }
     
     
-    private Notification(String title, String artist, String composer) {
-        setTitle(title);
-        setArtist(artist);
-        setClassical(true);
-        setComposer(composer);
+    private Notification(String severity, String category) {
+        setSeverity(severity);
+        setCategory(category);
+        setSecurity(false);
+        setImpairment(null);
+    }
+    
+    
+    private Notification(String severity, String category, String impairment) {
+        setSeverity(severity);
+        setCategory(category);
+        setSecurity(true);
+        setImpairment(impairment);
     }
 
     
@@ -163,104 +175,108 @@ public class Notification extends Model {
     
     
     /**
-     * Returns this album's title, for example "A Love Supreme",
+     * Returns this album's severity, for example "A Love Supreme",
      * or "Symphony No. 5".
      * 
-     * @return this album's title.
+     * @return this album's severity.
      */
-    public String getTitle() {
-        return title;
+    public String getSeverity() {
+        return severity;
     }
     
 
     /**
-     * Returns this album's artist, for example "Albert Ayler"
+     * Returns this album's category, for example "Albert Ayler"
      * or "Berliner Philharmoniker". 
      * 
-     * @return this album's artist.
+     * @return this album's category.
      */
-    public String getArtist() {
-        return artist;
+    public String getCategory() {
+        return category;
     }
     
     
     /**
-     * Answers whether this is a classical album or not.
+     * Answers whether this is a security album or not.
      * 
-     * @return true if this album is classical, false if not
+     * @return true if this album is security, false if not
      */
-    public boolean isClassical() {
-        return classical;
+    public boolean isSecurity() {
+        return security;
     }
     
     
     /**
-     * Returns this album's composer - if any, for example "Richard Wagner".
-     * A composer is available if and only if this is a classical album.
+     * Returns this album's impairment - if any, for example "Richard Wagner".
+     * A impairment is available if and only if this is a security album.
      * 
-     * @return the composer of this album's music.
+     * @return the impairment of this album's music.
      * 
-     * @see #isClassical
+     * @see #isSecurity
      */
-    public String getComposer() {
-        return composer;
+    public String getImpairment() {
+        return impairment;
     }
     
     
 
     /**
-     * Sets this album's title and notifies observers 
-     * if the title changed.
+     * Sets this album's severity and notifies observers
+     * if the severity changed.
      * 
-     * @param title   The title to set.
+     * @param severity   The severity to set.
      */
-    public void setTitle(String title) {
-        Object oldValue = getTitle();
-        this.title = title;
-        firePropertyChange(PROPERTYNAME_TITLE, oldValue, title);
+    public void setSeverity(String severity) {
+        Object oldValue = getSeverity();
+        this.severity = severity;
+        firePropertyChange(PROPERTYNAME_SEVERITY, oldValue, severity);
+    }
+
+    public void fireInsert(){
+        fireMultiplePropertiesChanged();
     }
     
     
     /**
-     * Sets a new artist and notifies observers if the artist changed.
+     * Sets a new category and notifies observers if the category changed.
      * 
-     * @param artist  The artist to set.
+     * @param category  The category to set.
      */
-    public void setArtist(String artist) {
-        String oldValue = getArtist();
-        this.artist = artist;
-        firePropertyChange(PROPERTYNAME_ARTIST, oldValue, artist);
+    public void setCategory(String category) {
+        String oldValue = getCategory();
+        this.category = category;
+        firePropertyChange(PROPERTYNAME_CATEGORY, oldValue, category);
     }
     
 
     /**
-     * Sets this album's classical property and notifies observers 
-     * about changes. If not classical the composer is set to <code>null</code>.
+     * Sets this album's security property and notifies observers
+     * about changes. If not security the impairment is set to <code>null</code>.
      * 
-     * @param classical   true to indicate that this album is classical
+     * @param security   true to indicate that this album is security
      */
-    public void setClassical(boolean classical) {
-        boolean oldValue = isClassical();
-        this.classical = classical;
-        firePropertyChange(PROPERTYNAME_CLASSICAL, oldValue, classical);
-        if (!classical) {
-            setComposer(null);
+    public void setSecurity(boolean security) {
+        boolean oldValue = isSecurity();
+        this.security = security;
+        firePropertyChange(PROPERTYNAME_SECURITY, oldValue, security);
+        if (!security) {
+            setImpairment(null);
         }
     }
     
 
     /**
-     * Sets this album's composer and notifies observers if it has changed.
-     * A composer shall be set only if this is a classical album.
+     * Sets this album's impairment and notifies observers if it has changed.
+     * A impairment shall be set only if this is a security album.
      * 
-     * @param composer   The composer to set.
+     * @param impairment   The impairment to set.
      * 
-     * @see #isClassical
+     * @see #isSecurity
      */
-    public void setComposer(String composer) {
-        Object oldValue = getComposer();
-        this.composer = composer;
-        firePropertyChange(PROPERTYNAME_COMPOSER, oldValue, composer);
+    public void setImpairment(String impairment) {
+        Object oldValue = getImpairment();
+        this.impairment = impairment;
+        firePropertyChange(PROPERTYNAME_IMPAIRMENT, oldValue, impairment);
     }
     
     
@@ -274,14 +290,14 @@ public class Notification extends Model {
      */
     public String toString() {
         StringBuffer buffer = new StringBuffer("Notification");
-        buffer.append(" [title=");
-        buffer.append(getTitle());
-        buffer.append("; artist=");
-        buffer.append(getArtist());
-        buffer.append("; classical=");
-        buffer.append(isClassical());
-        buffer.append("; composer=");
-        buffer.append(getComposer());
+        buffer.append(" [severity=");
+        buffer.append(getSeverity());
+        buffer.append("; category=");
+        buffer.append(getCategory());
+        buffer.append("; security=");
+        buffer.append(isSecurity());
+        buffer.append("; impairment=");
+        buffer.append(getImpairment());
         buffer.append("]");
         return buffer.toString();
     }
@@ -294,14 +310,14 @@ public class Notification extends Model {
      */
     public String toWrappedString() {
         StringBuffer buffer = new StringBuffer("Notification");
-        buffer.append("[\ntitle=");
-        buffer.append(getTitle());
-        buffer.append(";\nartist=");
-        buffer.append(getArtist());
-        buffer.append(";\nclassical=");
-        buffer.append(isClassical());
-        buffer.append(";\ncomposer=");
-        buffer.append(getComposer());
+        buffer.append("[\nseverity=");
+        buffer.append(getSeverity());
+        buffer.append(";\ncategory=");
+        buffer.append(getCategory());
+        buffer.append(";\nsecurity=");
+        buffer.append(isSecurity());
+        buffer.append(";\nimpairment=");
+        buffer.append(getImpairment());
         buffer.append("\n]");
         return buffer.toString();
     }

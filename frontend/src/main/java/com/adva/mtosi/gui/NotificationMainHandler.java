@@ -9,6 +9,9 @@
 package com.adva.mtosi.gui;
 
 import com.adva.mtosi.gui.beans.Notification;
+import com.adva.mtosi.gui.utils.NotificationManager;
+import com.adva.mtosi.gui.utils.NotificationManagerModel;
+import com.adva.mtosi.gui.utils.NotificationManagerView;
 import com.adva.mtosi.gui.utils.TutorialUtils;
 import com.jgoodies.binding.PresentationModel;
 import com.jgoodies.binding.adapter.BasicComponentFactory;
@@ -36,12 +39,14 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.Serializable;
 import java.text.NumberFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 public final class NotificationMainHandler {
 
     private final ExamplePresentationModel presentationModel;
+
+    public static NotificationManagerView INSTANCE;
+    public static NotificationManager albumManager;
 
     private static final class ExamplePresentationModel extends PresentationModel {
 
@@ -134,7 +139,7 @@ public final class NotificationMainHandler {
             objectChoice = LEFT;
             text = "Text";
             listModel = new ArrayListModel();
-            listModel.addAll(Notification.ALBUMS);
+            listModel.addAll(Notification.NOTIFICATIONS);
             listSelection = listModel.get(0);
         }
 
@@ -284,7 +289,7 @@ public final class NotificationMainHandler {
     // Lists
     private JComboBox comboBox;
     private JList     list;
-    private JTable    table;
+    public JTable    table;
 
     // Choice
     private JRadioButton leftIntRadio;
@@ -315,15 +320,17 @@ public final class NotificationMainHandler {
             // Likely PlasticXP is not in the class path; ignore.
         }
         JFrame frame = new JFrame();
-        frame.setTitle("Binding Tutorial :: Components");
+        frame.setTitle("Notification Receiver :: ver 0002");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        NotificationMainHandler example = new NotificationMainHandler();
-        JComponent panel = example.buildPanel();
+        java.util.List exampleAlbums = Notification.NOTIFICATIONS;
+        albumManager = new NotificationManager(exampleAlbums);
+        NotificationManagerModel model = new NotificationManagerModel(albumManager);
+        INSTANCE = new NotificationManagerView(model);
+        JComponent panel = INSTANCE.buildPanel();
         frame.getContentPane().add(panel);
         frame.pack();
         TutorialUtils.locateOnOpticalScreenCenter(frame);
         frame.setVisible(true);
-
     }
 
     public JComponent buildPanel() {
@@ -333,7 +340,7 @@ public final class NotificationMainHandler {
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.putClientProperty("jgoodies.noContentBorder", Boolean.TRUE);
 
-        tabbedPane.addTab("Text",      buildTextPanel());
+        tabbedPane.addTab("Events",      buildTextPanel());
 //        tabbedPane.addTab("Formatted", buildFormattedPanel());
 //        tabbedPane.addTab("Choices",   buildChoicesPanel());
 //        tabbedPane.addTab("List",      buildListPanel());
@@ -429,28 +436,42 @@ public final class NotificationMainHandler {
     }
 
     private void updatePreviewPanel() {
-        colorPreview.setBackground(Color.CYAN);
-//        colorPreview.setBackground(((NotificationBean) presentationModel.getBean()).getColor());
+//        colorPreview.setBackground(Color.CYAN);
+        colorPreview.setBackground(((NotificationBean) presentationModel.getBean()).getColor());
     }
 
     private JPanel buildTextPanel() {
         FormLayout layout = new FormLayout(
-                "right:max(50dlu;pref), 3dlu, 50dlu",
-                "p, 3dlu, p, 3dlu, p, 14dlu, 3dlu, p");
-        layout.setRowGroups(new int[][]{{1, 3, 5}});
+                "right:max(70dlu;pref), 3dlu, 250dlu",
+                "fill:160dlu, 6dlu, fill:60dlu, 6dlu, p");
+//        layout.setRowGroups(new int[][]{{1, 3, 5}});
 
         PanelBuilder builder = new PanelBuilder(layout);
         builder.setDefaultDialogBorder();
+//        Action chooseAction = new ChooseColorAction(
+//                builder.getPanel(),
+//                presentationModel.getModel(ExampleBean.PROPERTYNAME_COLOR));
+
         CellConstraints cc = new CellConstraints();
-        builder.addLabel("JTextField",          cc.xy  (1, 1));
-        builder.add(textField,                  cc.xy  (3, 1));
-        builder.addLabel("JPasswordField",      cc.xy  (1, 3));
-        builder.add(passwordField,              cc.xy  (3, 3));
-        builder.addLabel("JTextArea",           cc.xy  (1, 5));
-        builder.add(new JScrollPane(textArea),  cc.xywh(3, 5, 1, 2));
-        builder.addLabel("JLabel",              cc.xy  (1, 8));
-        builder.add(textLabel,                  cc.xy  (3, 8));
+//        builder.addLabel("Events",           cc.xy  (1, 1, "right, top"));
+        builder.add(new JScrollPane(table),  cc.xy  (1, 1));
+//        builder.addLabel("JPasswordField",      cc.xy  (1, 3));
+//        builder.add(passwordField,              cc.xy  (3, 3));
+//        builder.addLabel("JTextArea",           cc.xy  (1, 5));
+//        builder.add(new JScrollPane(textArea),  cc.xywh(3, 5, 1, 2));
+//        builder.addLabel("JLabel",              cc.xy  (1, 8));
+//        builder.add(textLabel,                  cc.xy  (3, 8));
         return builder.getPanel();
+    }
+
+    private static final class SubscribeAction extends AbstractAction{
+
+        private SubscribeAction(Component parent, ValueModel model){
+
+        }
+        public void actionPerformed(ActionEvent e) {
+
+        }
     }
 
     private JPanel buildFormattedPanel() {
