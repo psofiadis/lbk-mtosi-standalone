@@ -79,6 +79,12 @@
     <orderEntry type="library" name="Maven: javax.servlet:jstl:1.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-web:4.2.0.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:4.2.0.RELEASE" level="project" />
+    <orderEntry type="module" module-name="frontend" />
+    <orderEntry type="library" name="Maven: com.jgoodies:jgoodies-binding:2.7.0" level="project" />
+    <orderEntry type="library" name="Maven: com.jgoodies:jgoodies-common:1.4.0" level="project" />
+    <orderEntry type="library" name="Maven: com.jgoodies:jgoodies-validation:2.4.2" level="project" />
+    <orderEntry type="library" name="Maven: com.jgoodies:jgoodies-forms:1.6.0" level="project" />
+    <orderEntry type="library" name="Maven: com.jgoodies:jgoodies-looks:2.5.2" level="project" />
   </component>
   <component name="org.twodividedbyzero.idea.findbugs">
     <option name="_basePreferences">
