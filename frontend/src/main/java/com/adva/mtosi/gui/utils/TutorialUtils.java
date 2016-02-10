@@ -150,7 +150,7 @@ public final class TutorialUtils {
      */
     public static final class AlbumTableModel extends AbstractTableAdapter {
         
-        private static final String[] COLUMNS = {"Category", "Severity", "Security", "Impairment"};
+        private static final String[] COLUMNS = {"MD","NE","AID","Description","Category", "Severity", "Security", "Impairment"};
         private final ListModel listModel;
         private AlbumTableModel(ListModel listModel) {
             super(listModel, COLUMNS);
@@ -165,10 +165,14 @@ public final class TutorialUtils {
         public Object getValueAt(int rowIndex, int columnIndex) {
             Notification album = (Notification) getRow(rowIndex);
             switch (columnIndex) {
-                case 0 : return album.getCategory();
-                case 1 : return album.getSeverity();
-                case 2 : return Boolean.valueOf(album.isSecurity());
-                case 3 : return album.isSecurity() ? album.getImpairment() : "";
+                case 0:  return album.getMd();
+                case 1:  return album.getNe();
+                case 2:  return album.getAid();
+                case 3:  return album.getDescription();
+                case 4 : return album.getCategory();
+                case 5 : return album.getSeverity();
+                case 6 : return Boolean.valueOf(album.isSecurity());
+                case 7 : return album.getImpairment();
                 default :
                     throw new IllegalStateException("Unknown column");
             }

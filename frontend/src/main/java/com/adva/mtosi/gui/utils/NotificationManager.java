@@ -105,6 +105,10 @@ public final class NotificationManager {
     public Notification createItem(String severity, String category, Boolean security, String impairment ) {
         return new Notification(severity,category,security,impairment);
     }
+
+    public Notification createItem(String md, String ne,String aid, String text,String severity, String category, Boolean security, String impairment ) {
+        return new Notification(md, ne, aid, text,severity,category,security,impairment);
+    }
     
     
     /**

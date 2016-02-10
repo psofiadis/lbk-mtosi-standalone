@@ -10,6 +10,7 @@ package com.adva.mtosi.server;
 
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
+import com.adva.mtosi.Utils.MtosiAddress;
 import com.adva.mtosi.gui.NotificationMainHandler;
 import com.adva.mtosi.gui.beans.Notification;
 import com.adva.mtosi.gui.utils.NotificationManager;
@@ -43,7 +44,12 @@ public class NotificationConsumerImpl implements NotificationConsumer{
         log.info("Output logger received: " + alarmType.toString());
         System.out.println(alarmType.getObjectName().getRdn().get(0));
         List<Object> objects = alarmType.getVendorExtensions().getAny();
-        Notification notification = NotificationMainHandler.albumManager.createItem(alarmType.getPerceivedSeverity().value(), alarmType.getX733EventType(),
+        MtosiAddress address = new MtosiAddress(alarmType.getObjectName());
+        Notification notification = NotificationMainHandler.albumManager.createItem(
+                address.getMdName(),address.getMeName(),address.getMtosiAddress(),
+                alarmType.getAdditionalText(),
+                alarmType.getPerceivedSeverity().value(),
+                alarmType.getX733EventType(),
                 "True".equals(getVendorAttributeValue(objects, "Security")),
                 getVendorAttributeValue(objects, "Impairement"));
         NotificationMainHandler.albumManager.addItem(notification);

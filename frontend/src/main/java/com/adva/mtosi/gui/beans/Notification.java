@@ -74,6 +74,10 @@ public class Notification extends Model {
 
     // Names of the Bound Bean Properties *************************************
 
+    public static final String PROPERTYNAME_NE_NAME = "ne";
+    public static final String PROPERTYNAME_MD_NAME = "md";
+    public static final String PROPERTYNAME_AID = "aid";
+    public static final String PROPERTYNAME_DESCRIPTION = "description";
     public static final String PROPERTYNAME_CATEGORY = "category";
     public static final String PROPERTYNAME_SECURITY = "security";
     public static final String PROPERTYNAME_IMPAIRMENT = "impairment";
@@ -81,7 +85,12 @@ public class Notification extends Model {
     
     
     // Instance Fields ********************************************************
-    
+
+    private String ne;
+    private String md;
+    private String aid;
+    private String description;
+
     /**
      * This Notification's severity as associated with its ISBN,
      * for example "Symphony No. 5".
@@ -119,6 +128,17 @@ public class Notification extends Model {
     }
 
     public Notification(String severity, String category, Boolean security, String impairment) {
+        setSeverity(severity);
+        setCategory(category);
+        setSecurity(security);
+        setImpairment(impairment);
+    }
+
+    public Notification(String md, String ne, String aid, String desc, String severity, String category, Boolean security, String impairment) {
+        setMd(md);
+        setNe(ne);
+        setAid(aid);
+        setDescription(desc);
         setSeverity(severity);
         setCategory(category);
         setSecurity(security);
@@ -217,8 +237,38 @@ public class Notification extends Model {
     public String getImpairment() {
         return impairment;
     }
-    
-    
+
+    public String getNe() {
+        return ne;
+    }
+
+    public void setNe(String ne) {
+        this.ne = ne;
+    }
+
+    public String getMd() {
+        return md;
+    }
+
+    public void setMd(String md) {
+        this.md = md;
+    }
+
+    public String getAid() {
+        return aid;
+    }
+
+    public void setAid(String aid) {
+        this.aid = aid;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     /**
      * Sets this album's severity and notifies observers
