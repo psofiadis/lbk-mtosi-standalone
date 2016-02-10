@@ -60,6 +60,7 @@ public class Notification extends Model {
     public static final String PROPERTYNAME_MD_NAME = "md";
     public static final String PROPERTYNAME_AID = "aid";
     public static final String PROPERTYNAME_DESCRIPTION = "description";
+    public static final String PROPERTYNAME_DATE = "date";
     public static final String PROPERTYNAME_CATEGORY = "category";
     public static final String PROPERTYNAME_SECURITY = "security";
     public static final String PROPERTYNAME_IMPAIRMENT = "impairment";
@@ -72,6 +73,7 @@ public class Notification extends Model {
     private String md;
     private String aid;
     private String description;
+    private String date;
 
     /**
      * This Notification's severity as associated with its ISBN,
@@ -116,11 +118,12 @@ public class Notification extends Model {
         setImpairment(impairment);
     }
 
-    public Notification(String md, String ne, String aid, String desc, String severity, String category, Boolean security, String impairment) {
+    public Notification(String md, String ne, String aid, String desc, String date, String severity, String category, Boolean security, String impairment) {
         setMd(md);
         setNe(ne);
         setAid(aid);
         setDescription(desc);
+        setDate(date);
         setSeverity(severity);
         setCategory(category);
         setSecurity(security);
@@ -212,6 +215,14 @@ public class Notification extends Model {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     /**

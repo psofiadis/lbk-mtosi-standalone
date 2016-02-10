@@ -19,6 +19,7 @@ import org.tmforum.mtop.fmw.xsd.hdr.v1.Header;
 import org.tmforum.mtop.fmw.xsd.notmsg.v1.Notify;
 import org.tmforum.mtop.nra.xsd.alm.v1.AlarmType;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 
@@ -39,9 +40,13 @@ public class NotificationConsumerImpl implements NotificationConsumer{
         System.out.println(alarmType.getObjectName().getRdn().get(0));
         List<Object> objects = alarmType.getVendorExtensions().getAny();
         MtosiAddress address = new MtosiAddress(alarmType.getObjectName());
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        formatter.setTimeZone(alarmType.getOsTime().toGregorianCalendar().getTimeZone());
+        String dateString = formatter.format(alarmType.getOsTime().toGregorianCalendar().getTime());
         Notification notification = NotificationMainHandler.notificationManager.createItem(
                 address.getMdName(),address.getMeName(),address.getMtosiAddress(),
                 alarmType.getAdditionalText(),
+                dateString,
                 alarmType.getPerceivedSeverity().value(),
                 alarmType.getX733EventType(),
                 "True".equals(getVendorAttributeValue(objects, "Security")),
