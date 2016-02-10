@@ -38,21 +38,21 @@ import com.adva.mtosi.gui.beans.Notification;
 import com.jgoodies.common.collect.ArrayListModel;
 
 /**
- * Holds a List of Albums and provides operations to add, delete and
+ * Holds a List of Notifications and provides operations to add, delete and
  * change a Notification. Such a manager is often part of the domain layer.<p>
  * 
- * This manager holds the Albums in an ArrayListModel, so we can
+ * This manager holds the Notifications in an ArrayListModel, so we can
  * operate on a List and can expose it as a ListModel.
  * As an alternative, a higher-level presentation model, such as
  * the NotificationManagerModel could turn the List into a ListModel.
  * In the latter case, you would then need to fire the required
  * ListDataEvents.<p>
  * 
- * The NotificationManagerModel turns the List of Albums and the operations
+ * The NotificationManagerModel turns the List of Notifications and the operations
  * into a form that can be used in a user interface to display,
- * select, and edit Albums.<p>
+ * select, and edit Notifications.<p>
  * 
- * TODO: Demonstrate how to sort the albums.  
+ * TODO: Demonstrate how to sort the notifications.
  * 
  * @author Karsten Lentzsch
  * @version $Revision: 1.7 $
@@ -62,36 +62,36 @@ import com.jgoodies.common.collect.ArrayListModel;
 public final class NotificationManager {
     
     /**
-     * Holds the List of Albums. Albums are added and removed from this List.
+     * Holds the List of Notifications. Notifications are added and removed from this List.
      * The ObservableList implements ListModel, and so, we can directly
      * use this List for the UI and can observe changes.<p>
      * 
      * In a real world application this List may be kept 
      * in synch with a database.
      */
-    private final ArrayListModel managedAlbums;
+    private final ArrayListModel managedNotifications;
     
 
     // Instance Creation ******************************************************
     
     /**
-     * Constructs a NotificationManager for the given list of Albums.
+     * Constructs a NotificationManager for the given list of Notifications.
      * 
-     * @param albums   the list of Albums to manage
+     * @param notifications   the list of Notifications to manage
      */
-    public NotificationManager(List albums) {
-        this.managedAlbums = new ArrayListModel(albums);
+    public NotificationManager(List notifications) {
+        this.managedNotifications = new ArrayListModel(notifications);
     }
     
     
-    // Exposing the ListModel of Albums ****************************************
+    // Exposing the ListModel of Notifications ****************************************
     
-    public ListModel getManagedAlbums() {
-        return managedAlbums;
+    public ListModel getManagedNotifications() {
+        return managedNotifications;
     }
     
     
-    // Managing Albums *********************************************************
+    // Managing Notifications *********************************************************
     
     /**
      * Creates and return a new Notification.
@@ -102,36 +102,32 @@ public final class NotificationManager {
         return new Notification();
     }
 
-    public Notification createItem(String severity, String category, Boolean security, String impairment ) {
-        return new Notification(severity,category,security,impairment);
-    }
-
     public Notification createItem(String md, String ne,String aid, String text,String severity, String category, Boolean security, String impairment ) {
         return new Notification(md, ne, aid, text,severity,category,security,impairment);
     }
     
     
     /**
-     * Adds the given Notification to the List of managed Albums
-     * and notifies observers of the managed Albums ListModel
+     * Adds the given Notification to the List of managed Notifications
+     * and notifies observers of the managed Notifications ListModel
      * about the change.
      * 
-     * @param albumToAdd   the Notification to add
+     * @param notificationsToAdd   the Notification to add
      */
-    public void addItem(Notification albumToAdd) {
-        managedAlbums.add(albumToAdd);
+    public void addItem(Notification notificationsToAdd) {
+        managedNotifications.add(notificationsToAdd);
     }
     
     
     /**
-     * Removes the given Notification from the List of managed Albums
-     * and notifies observers of the managed Albums ListModel
+     * Removes the given Notification from the List of managed Notifications
+     * and notifies observers of the managed Notifications ListModel
      * about the change.
      * 
-     * @param albumToRemove    the Notification to remove
+     * @param notificationsToRemove    the Notification to remove
      */
-    public void removeItem(Notification albumToRemove) {
-        managedAlbums.remove(albumToRemove);
+    public void removeItem(Notification notificationsToRemove) {
+        managedNotifications.remove(notificationsToRemove);
     }
     
     

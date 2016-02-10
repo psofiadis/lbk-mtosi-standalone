@@ -31,7 +31,6 @@
 package com.adva.mtosi.gui.beans;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.jgoodies.binding.beans.Model;
@@ -48,28 +47,11 @@ import com.jgoodies.binding.beans.Model;
  * @version $Revision: 1.5 $
  */
 public class Notification extends Model {
-    
-    // Examples ***************************************************************
-    
-    /** An example Notification. */
-    public static final Notification NOTIFICATION_1 = createExample1();
 
-    /** An example Notification. */
-    public static final Notification NOTIFICATION_2 = createExample2();
-
-    /** An example Notification. */
-    public static final Notification NOTIFICATION_3 = createExample3();
-
-    /** An example Notification. */
-    public static final Notification NOTIFICATION_4 = createExample4();
-    
-//    /** A List of Albums made of the examples 1 to 4. */
-//    public static final List NOTIFICATIONS =  Arrays.asList(new Notification[]{
-//            NOTIFICATION_1, NOTIFICATION_2, NOTIFICATION_3, NOTIFICATION_4});
-
-    public static final List<Notification> NOTIFICATIONS = new ArrayList(){{
-        add(new Notification("","",false,""));
-    }};
+    public static final List<Notification> NOTIFICATIONS = new ArrayList();
+//    {{
+//        add(new Notification("","",false,""));
+//    }};
 
 
     // Names of the Bound Bean Properties *************************************
@@ -111,7 +93,7 @@ public class Notification extends Model {
     
     /**
      * Holds the impairment of this Notification's music, for example "Beethoven".
-     * Available if and only if this is a security album.
+     * Available if and only if this is a security notification.
      */
     private String impairment;
     
@@ -152,53 +134,15 @@ public class Notification extends Model {
         setSecurity(false);
         setImpairment(null);
     }
-    
-    
-    private Notification(String severity, String category, String impairment) {
-        setSeverity(severity);
-        setCategory(category);
-        setSecurity(true);
-        setImpairment(impairment);
-    }
-
-    
-    // Creating Example Instances *********************************************
-    
-    private static Notification createExample1() {
-        return new Notification(
-                "The Marshall Mathers LP",
-                "Eminem");
-    }
-    
-    private static Notification createExample2() {
-        return new Notification(
-                "Elephant",
-                "The White Stripes");
-    }
-    
-    private static Notification createExample3() {
-        return new Notification(
-                "The Blueprint",
-                "Jay-Z");
-    }
-    
-    private static Notification createExample4() {
-        return new Notification(
-                "Tristan und Isolde",
-                "Berliner Philharmoniker",
-                "Richard Wagner");
-    }
-    
-    
 
     // Accessors **************************************************************
     
     
     /**
-     * Returns this album's severity, for example "A Love Supreme",
+     * Returns this notification's severity, for example "A Love Supreme",
      * or "Symphony No. 5".
      * 
-     * @return this album's severity.
+     * @return this notification's severity.
      */
     public String getSeverity() {
         return severity;
@@ -206,10 +150,10 @@ public class Notification extends Model {
     
 
     /**
-     * Returns this album's category, for example "Albert Ayler"
+     * Returns this notification's category, for example "Albert Ayler"
      * or "Berliner Philharmoniker". 
      * 
-     * @return this album's category.
+     * @return this notification's category.
      */
     public String getCategory() {
         return category;
@@ -217,9 +161,9 @@ public class Notification extends Model {
     
     
     /**
-     * Answers whether this is a security album or not.
+     * Answers whether this is a security notification or not.
      * 
-     * @return true if this album is security, false if not
+     * @return true if this notification is security, false if not
      */
     public boolean isSecurity() {
         return security;
@@ -227,10 +171,10 @@ public class Notification extends Model {
     
     
     /**
-     * Returns this album's impairment - if any, for example "Richard Wagner".
-     * A impairment is available if and only if this is a security album.
+     * Returns this notification's impairment - if any, for example "Richard Wagner".
+     * A impairment is available if and only if this is a security notification.
      * 
-     * @return the impairment of this album's music.
+     * @return the impairment of this notification's music.
      * 
      * @see #isSecurity
      */
@@ -271,7 +215,7 @@ public class Notification extends Model {
     }
 
     /**
-     * Sets this album's severity and notifies observers
+     * Sets this notification's severity and notifies observers
      * if the severity changed.
      * 
      * @param severity   The severity to set.
@@ -280,10 +224,6 @@ public class Notification extends Model {
         Object oldValue = getSeverity();
         this.severity = severity;
         firePropertyChange(PROPERTYNAME_SEVERITY, oldValue, severity);
-    }
-
-    public void fireInsert(){
-        fireMultiplePropertiesChanged();
     }
     
     
@@ -300,10 +240,10 @@ public class Notification extends Model {
     
 
     /**
-     * Sets this album's security property and notifies observers
+     * Sets this notification's security property and notifies observers
      * about changes. If not security the impairment is set to <code>null</code>.
      * 
-     * @param security   true to indicate that this album is security
+     * @param security   true to indicate that this notification is security
      */
     public void setSecurity(boolean security) {
         boolean oldValue = isSecurity();
@@ -316,8 +256,8 @@ public class Notification extends Model {
     
 
     /**
-     * Sets this album's impairment and notifies observers if it has changed.
-     * A impairment shall be set only if this is a security album.
+     * Sets this notification's impairment and notifies observers if it has changed.
+     * A impairment shall be set only if this is a security notification.
      * 
      * @param impairment   The impairment to set.
      * 
@@ -333,10 +273,10 @@ public class Notification extends Model {
     // Misc *******************************************************************
     
     /**
-     * Returns a string representation of this album
+     * Returns a string representation of this notification
      * that contains the property values in a single text line.
      * 
-     * @return a string representation of this album
+     * @return a string representation of this notification
      */
     public String toString() {
         StringBuffer buffer = new StringBuffer("Notification");
@@ -349,26 +289,6 @@ public class Notification extends Model {
         buffer.append("; impairment=");
         buffer.append(getImpairment());
         buffer.append("]");
-        return buffer.toString();
-    }
-
-    /**
-     * Returns a string representation of this album
-     * that contains the property values.
-     * 
-     * @return a string representation of this album
-     */
-    public String toWrappedString() {
-        StringBuffer buffer = new StringBuffer("Notification");
-        buffer.append("[\nseverity=");
-        buffer.append(getSeverity());
-        buffer.append(";\ncategory=");
-        buffer.append(getCategory());
-        buffer.append(";\nsecurity=");
-        buffer.append(isSecurity());
-        buffer.append(";\nimpairment=");
-        buffer.append(getImpairment());
-        buffer.append("\n]");
         return buffer.toString();
     }
 

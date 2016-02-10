@@ -45,13 +45,13 @@ import com.jgoodies.binding.list.SelectionInList;
 import com.adva.mtosi.gui.beans.Notification;
 
 /**
- * Provides the models and Actions for managing and editing Albums.
+ * Provides the models and Actions for managing and editing Notifications.
  * Works with an underlying NotificationManager that provides a ListModel
- * for the Albums and operations to add, remove, and change a Notification.
+ * for the Notifications and operations to add, remove, and change a Notification.
  * In other words, this class turns the raw data and operations
  * form the NotificationManager into a form usable in a user interface.<p>
  * 
- * This model keeps the Albums in a SelectionInList, refers to another
+ * This model keeps the Notifications in a SelectionInList, refers to another
  * PresentationModel for editing the selected Notification, and provides 
  * Actions for the Notification operations: add, remove and edit the selected Notification.
  * 
@@ -64,15 +64,15 @@ import com.adva.mtosi.gui.beans.Notification;
 public final class NotificationManagerModel {
     
     /**
-     * Holds the List of Albums and provides operations 
+     * Holds the List of Notifications and provides operations
      * to create, add, remove and change a Notification.
      */
-    private final NotificationManager albumManager;
+    private final NotificationManager notificationManager;
     
     /**
-     * Holds the list of managed albums plus a single selection.
+     * Holds the list of managed notifications plus a single selection.
      */
-    private SelectionInList albumSelection;
+    private SelectionInList notificationSelection;
 
     private Action newAction;
     private Action editAction;
@@ -81,12 +81,12 @@ public final class NotificationManagerModel {
     // Instance Creation ******************************************************
     
     /**
-     * Constructs an NotificationManager for editing the given list of Albums.
+     * Constructs an NotificationManager for editing the given list of Notifications.
      * 
-     * @param albumManager   the list of albums to edit
+     * @param notificationManager   the list of notifications to edit
      */
-    public NotificationManagerModel(NotificationManager albumManager) {
-        this.albumManager = albumManager;
+    public NotificationManagerModel(NotificationManager notificationManager) {
+        this.notificationManager = notificationManager;
         initModels();
         initEventHandling();
     }
@@ -100,7 +100,7 @@ public final class NotificationManagerModel {
      * with the selection state, we update the enablement now. 
      */
     private void initModels() {
-        albumSelection = new SelectionInList(albumManager.getManagedAlbums());
+        notificationSelection = new SelectionInList(notificationManager.getManagedNotifications());
         
         newAction = new NewAction();
         editAction = new EditAction();
@@ -112,10 +112,10 @@ public final class NotificationManagerModel {
     /**
      * Initializes the event handling by just registering a
      * handler that updates the Action enablement if the
-     * albumSelection's 'selectionEmpty' property changes.
+     * notificationSelection's 'selectionEmpty' property changes.
      */
     private void initEventHandling() {
-        albumSelection.addPropertyChangeListener(
+        notificationSelection.addPropertyChangeListener(
                 SelectionInList.PROPERTYNAME_SELECTION_EMPTY,
                 new SelectionEmptyHandler());
     }
@@ -124,19 +124,19 @@ public final class NotificationManagerModel {
     // Exposing Models and Actions ********************************************
     
     /**
-     * Returns the List of Albums with the current selection.
-     * Useful to display the managed Albums in a JList or JTable.
+     * Returns the List of Notifications with the current selection.
+     * Useful to display the managed Notifications in a JList or JTable.
      * 
-     * @return the List of Albums with selection
+     * @return the List of Notifications with selection
      */
-    public SelectionInList getAlbumSelection() {
-        return albumSelection;
+    public SelectionInList getNotificationSelection() {
+        return notificationSelection;
     }
     
     
     /**
      * Returns the Action that creates a new Notification and adds it 
-     * to this model's List of managed Albums. Opens a AlbumEditorDialog
+     * to this model's List of managed Notifications. Opens a NotificationEditorDialog
      * on the newly created Notification.
      *  
      * @return the Action that creates and adds a new Notification
@@ -147,9 +147,9 @@ public final class NotificationManagerModel {
     
     
     /**
-     * Returns the Action that opens a AlbumEditorDialog on the selected Notification.
+     * Returns the Action that opens a NotificationEditorDialog on the selected Notification.
      * 
-     * @return the Action that opens a AlbumEditorDialog on the selected Notification
+     * @return the Action that opens a NotificationEditorDialog on the selected Notification
      */
     public Action getEditAction() {
         return editAction;
@@ -158,7 +158,7 @@ public final class NotificationManagerModel {
     
     /**
      * Returns the Action that deletes the selected Notification from
-     * this model's List of managed albums.
+     * this model's List of managed notifications.
      * 
      * @return The Action that deletes the selected Notification
      */
@@ -182,8 +182,8 @@ public final class NotificationManagerModel {
     // This makes it easier to overview this class.
     
     private void doNew() {
-        Object newAlbum = createAndAddItem();
-        getAlbumSelection().setSelection(newAlbum);
+        Object newNotification = createAndAddItem();
+        getNotificationSelection().setSelection(newNotification);
     }
     
     
@@ -197,47 +197,47 @@ public final class NotificationManagerModel {
     
     
     /**
-     * Lets the NotificationManager removes the selected Notification from the list of Albums.
+     * Lets the NotificationManager removes the selected Notification from the list of Notifications.
      * The NotificationManager fires the list data change event. If the NotificationManager
      * wouldn't fire this event, we could use 
      * {@link com.jgoodies.binding.list.SelectionInList#fireIntervalRemoved(int, int)}.
      */
     private void doDelete() {
-        albumManager.removeItem(getSelectedItem());
+        notificationManager.removeItem(getSelectedItem());
     }
     
     
-    // Managing Albums ********************************************************
+    // Managing Notifications ********************************************************
     
     /**
-     * Lets the NotificationManager add the given Notification to the list of Albums.
+     * Lets the NotificationManager add the given Notification to the list of Notifications.
      * The NotificationManager fires the list data change event. If the NotificationManager
      * won't fire this event, we could use 
      * {@link com.jgoodies.binding.list.SelectionInList#fireIntervalAdded(int, int)}.
      */
-    private void addItem(Notification albumToAdd) {
-        albumManager.addItem(albumToAdd);
+    private void addItem(Notification notificationToAdd) {
+        notificationManager.addItem(notificationToAdd);
     }
     
     /**
-     * Opens a AlbumEditorDialog for the given Notification.
+     * Opens a NotificationEditorDialog for the given Notification.
      * 
-     * @param album  the Notification to be edited
+     * @param notification  the Notification to be edited
      * @return true if the dialog has been canceled, false if accepted
      */
-    private boolean openAlbumEditor(Notification album) {
-//        AlbumEditorDialog dialog = new AlbumEditorDialog(null, album);
+    private boolean openNotificationEditor(Notification notification) {
+//        NotificationEditorDialog dialog = new NotificationEditorDialog(null, notification);
 //        dialog.open();
 //        return dialog.hasBeenCanceled();
     return false;
     }
     
     private Notification createAndAddItem() {
-        Notification newAlbum = albumManager.createItem();
-        boolean canceled = openAlbumEditor(newAlbum);
+        Notification newNofitication = notificationManager.createItem();
+        boolean canceled = openNotificationEditor(newNofitication);
         if (!canceled) {
-            addItem(newAlbum);
-            return newAlbum;
+            addItem(newNofitication);
+            return newNofitication;
         }
         return null;
     }
@@ -248,23 +248,23 @@ public final class NotificationManagerModel {
      * 
      * This implementation fires the contents change event using
      * {@link com.jgoodies.binding.list.SelectionInList#fireSelectedContentsChanged()}.
-     * Since the album SelectionInList contains a ListModel, 
-     * the <code>albumSelection</code> managed by the NotificationManager,
+     * Since the notification SelectionInList contains a ListModel,
+     * the <code>notificationSelection</code> managed by the NotificationManager,
      * the NotificationManager could fire that event. However, I favored to fire
      * the contents change in the SelectionInList because this approach
      * works with underlying Lists, ListModels, and managers that don't
      * fire contents changes.
      */
     private void editSelectedItem() {
-        boolean canceled = openAlbumEditor(getSelectedItem());
+        boolean canceled = openNotificationEditor(getSelectedItem());
         if (!canceled) {
-            getAlbumSelection().fireSelectedContentsChanged();
+            getNotificationSelection().fireSelectedContentsChanged();
         }
     }
     
     
     private Notification getSelectedItem() {
-        return (Notification) getAlbumSelection().getSelection();
+        return (Notification) getNotificationSelection().getSelection();
     }
     
 
@@ -320,7 +320,7 @@ public final class NotificationManagerModel {
     
     
     private void updateActionEnablement() {
-        boolean hasSelection = getAlbumSelection().hasSelection();
+        boolean hasSelection = getNotificationSelection().hasSelection();
         getEditAction().setEnabled(hasSelection);
         getDeleteAction().setEnabled(hasSelection);
     }

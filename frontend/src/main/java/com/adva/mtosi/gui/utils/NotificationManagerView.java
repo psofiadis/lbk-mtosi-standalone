@@ -42,9 +42,9 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * Builds a user interface for managing Albums using a table to display
- * the Albums and buttons to add, edit, and delete the selected album.
- * The models and Actions are provided by an underlying AlbumManagerModel.
+ * Builds a user interface for managing Notifications using a table to display
+ * the Notifications and buttons to add, edit, and delete the selected notification.
+ * The models and Actions are provided by an underlying NotificationManagerModel.
  *
  * @author  Karsten Lentzsch
  * @version $Revision: 1.3 $
@@ -55,12 +55,12 @@ import com.jgoodies.forms.layout.FormLayout;
 public final class NotificationManagerView {
     
     /**
-     * Provides a list of Albums with selection and Action
-     * for operating on the managed Albums.
+     * Provides a list of Notification with selection and Action
+     * for operating on the managed Notifications.
      */
-    public final NotificationManagerModel albumManagerModel;
+    public final NotificationManagerModel notificationManagerModel;
 
-    public JTable  albumTable;
+    public JTable notificationTable;
     private JButton newButton;
     private JButton editButton;
     private JButton deleteButton;
@@ -69,42 +69,40 @@ public final class NotificationManagerView {
     // Instance Creation ******************************************************
     
     /**
-     * Constructs a list editor for editing the given list of albums.
+     * Constructs a list editor for editing the given list of notifications.
      * 
-     * @param albumManagerModel   the list of albums to edit
+     * @param notificationManagerModel   the list of notification to edit
      */
-    public NotificationManagerView(NotificationManagerModel albumManagerModel) {
-        this.albumManagerModel = albumManagerModel;
+    public NotificationManagerView(NotificationManagerModel notificationManagerModel) {
+        this.notificationManagerModel = notificationManagerModel;
     }
     
-
     // Component Creation and Initialization **********************************
 
     /**
      *  Creates and intializes the UI components.
      */
     private void initComponents() {
-        albumTable = new JTable();
-        albumTable.setModel(TutorialUtils.createAlbumTableModel(
-                albumManagerModel.getAlbumSelection()));
-        albumTable.setSelectionModel(
+        notificationTable = new JTable();
+        notificationTable.setModel(NotificationUtils.createNotificationTableModel(
+                notificationManagerModel.getNotificationSelection()));
+        notificationTable.setSelectionModel(
                 new SingleListSelectionAdapter(
-                albumManagerModel.getAlbumSelection().getSelectionIndexHolder()));
+                notificationManagerModel.getNotificationSelection().getSelectionIndexHolder()));
         
-        newButton = new JButton(albumManagerModel.getNewAction());
-        editButton = new JButton(albumManagerModel.getEditAction());
-        deleteButton = new JButton(albumManagerModel.getDeleteAction());
+        newButton = new JButton(notificationManagerModel.getNewAction());
+        editButton = new JButton(notificationManagerModel.getEditAction());
+        deleteButton = new JButton(notificationManagerModel.getDeleteAction());
     }
     
     private void initEventHandling() {
-        albumTable.addMouseListener(albumManagerModel.getDoubleClickHandler());
+        notificationTable.addMouseListener(notificationManagerModel.getDoubleClickHandler());
     }
-    
     
     // Building ***************************************************************
 
     /**
-     * Builds and returns the panel for the Album Manager View.
+     * Builds and returns the panel for the Notification Manager View.
      * 
      * @return the built panel
      */
@@ -113,21 +111,20 @@ public final class NotificationManagerView {
         initEventHandling();
 
         FormLayout layout = new FormLayout(
-                "fill:250dlu:grow",
-                "p, 1dlu, fill:200dlu, 6dlu, p");
+                "fill:800dlu:grow",
+                "p, 1dlu, fill:400dlu, 6dlu, p");
                 
         PanelBuilder builder = new PanelBuilder(layout);
         builder.setDefaultDialogBorder();
         CellConstraints cc = new CellConstraints();
         
         builder.addTitle("Events",               cc.xy(1, 1));
-        builder.add(new JScrollPane(albumTable), cc.xy(1, 3));
+        builder.add(new JScrollPane(notificationTable), cc.xy(1, 3));
         builder.add(buildButtonBar(),            cc.xy(1, 5));
          
         return builder.getPanel();
     }
-    
-    
+
     private JComponent buildButtonBar() {
         ButtonBarBuilder builder = new ButtonBarBuilder();
         builder.addButton(newButton);
