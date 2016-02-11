@@ -111,8 +111,8 @@ public final class NotificationManagerView {
         initEventHandling();
 
         FormLayout layout = new FormLayout(
-                "fill:800dlu:grow",
-                "p, 1dlu, fill:400dlu, 6dlu, p");
+                "fill:900dlu:grow",
+                "p, 1dlu, fill:500dlu, 6dlu, p");
                 
         PanelBuilder builder = new PanelBuilder(layout);
         builder.setDefaultDialogBorder();

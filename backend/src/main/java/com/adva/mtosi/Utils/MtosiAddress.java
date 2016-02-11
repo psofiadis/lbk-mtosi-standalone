@@ -250,6 +250,8 @@ public class MtosiAddress {
         if(hasEh) {
             sb.append(ehName);
 //            if(hasEq) sb.append(" && 1");
+        }else if(hasPtp){
+            sb.append(ptpName);
         }else{
           sb.append("/aid=n/a");
         }

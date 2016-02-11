@@ -60,12 +60,18 @@ public class Notification extends Model {
     public static final String PROPERTYNAME_MD_NAME = "md";
     public static final String PROPERTYNAME_AID = "aid";
     public static final String PROPERTYNAME_DESCRIPTION = "description";
-    public static final String PROPERTYNAME_DATE = "date";
+    public static final String PROPERTYNAME_NMS_TIME = "nmsTime";
     public static final String PROPERTYNAME_CATEGORY = "category";
     public static final String PROPERTYNAME_SECURITY = "security";
     public static final String PROPERTYNAME_IMPAIRMENT = "impairment";
     public static final String PROPERTYNAME_SEVERITY = "severity";
-    
+
+    public static final String PROPERTYNAME_CAUSE = "cause";
+    public static final String PROPERTYNAME_MODULE_TYPE = "moduleType";
+    public static final String PROPERTYNAME_ENTITY_ALIAS = "entityAlias";
+    public static final String PROPERTYNAME_TIME = "time";
+    public static final String PROPERTYNAME_SERVICE_NAME = "serviceName";
+
     
     // Instance Fields ********************************************************
 
@@ -73,7 +79,12 @@ public class Notification extends Model {
     private String md;
     private String aid;
     private String description;
-    private String date;
+    private String nmsTime;
+    private String cause;
+    private String moduleType;
+    private String entityAlias;
+    private String time;
+    private String serviceName;
 
     /**
      * This Notification's severity as associated with its ISBN,
@@ -118,12 +129,19 @@ public class Notification extends Model {
         setImpairment(impairment);
     }
 
-    public Notification(String md, String ne, String aid, String desc, String date, String severity, String category, Boolean security, String impairment) {
+    public Notification(String md, String ne, String aid, String desc, String nmsTime,
+                        String cause, String moduleType, String entityAlias, String time, String serviceName,
+                        String severity, String category, Boolean security, String impairment) {
         setMd(md);
         setNe(ne);
         setAid(aid);
         setDescription(desc);
-        setDate(date);
+        setNmsTime(nmsTime);
+        setCause(cause);
+        setModuleType(moduleType);
+        setEntityAlias(entityAlias);
+        setTime(time);
+        setServiceName(serviceName);
         setSeverity(severity);
         setCategory(category);
         setSecurity(security);
@@ -217,12 +235,52 @@ public class Notification extends Model {
         this.description = description;
     }
 
-    public String getDate() {
-        return date;
+    public String getNmsTime() {
+        return nmsTime;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setNmsTime(String nmsTime) {
+        this.nmsTime = nmsTime;
+    }
+
+    public String getCause() {
+        return cause;
+    }
+
+    public void setCause(String cause) {
+        this.cause = cause;
+    }
+
+    public String getModuleType() {
+        return moduleType;
+    }
+
+    public void setModuleType(String moduleType) {
+        this.moduleType = moduleType;
+    }
+
+    public String getEntityAlias() {
+        return entityAlias;
+    }
+
+    public void setEntityAlias(String entityAlias) {
+        this.entityAlias = entityAlias;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
     }
 
     /**

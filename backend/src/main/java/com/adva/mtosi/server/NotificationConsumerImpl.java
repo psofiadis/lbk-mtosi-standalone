@@ -35,22 +35,32 @@ public class NotificationConsumerImpl implements NotificationConsumer{
   public void notify(Header mtopHeader, Notify mtopBody) {
     for(JAXBElement informationType : mtopBody.getMessage().getCommonEventInformation()) {
       if (informationType.getValue() instanceof AlarmType) {
+
         AlarmType alarmType = (AlarmType)informationType.getValue();
-        log.info("Output logger received: " + alarmType.toString());
-        System.out.println(alarmType.getObjectName().getRdn().get(0));
+
         List<Object> objects = alarmType.getVendorExtensions().getAny();
         MtosiAddress address = new MtosiAddress(alarmType.getObjectName());
+
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
         formatter.setTimeZone(alarmType.getOsTime().toGregorianCalendar().getTimeZone());
-        String dateString = formatter.format(alarmType.getOsTime().toGregorianCalendar().getTime());
+        String nmsTime = formatter.format(alarmType.getOsTime().toGregorianCalendar().getTime());
+        String neTime = formatter.format(alarmType.getSourceTime().toGregorianCalendar().getTime());
+
         Notification notification = NotificationMainHandler.notificationManager.createItem(
                 address.getMdName(),address.getMeName(),address.getMtosiAddress(),
                 alarmType.getAdditionalText(),
-                dateString,
+                nmsTime,
+                getVendorAttributeValue(objects, "Cause"),
+                getVendorAttributeValue(objects, "ModuleType"),
+                getVendorAttributeValue(objects, "EntityAlias"),
+                neTime,
+                getVendorAttributeValue(objects, "ServiceName"),
                 alarmType.getPerceivedSeverity().value(),
                 alarmType.getX733EventType(),
                 "True".equals(getVendorAttributeValue(objects, "Security")),
-                getVendorAttributeValue(objects, "Impairment"));
+                getVendorAttributeValue(objects, "Impairment")
+        );
+
         NotificationMainHandler.notificationManager.addItem(notification);
       }
     }
@@ -58,7 +68,8 @@ public class NotificationConsumerImpl implements NotificationConsumer{
 
   private String getVendorAttributeValue(List<Object> objects, String attr) {
     for(Object o : objects){
-      if(((ElementNSImpl) o).getLocalName().equals(attr)){
+      if(((ElementNSImpl) o).getLocalName().equals(attr) && ((ElementNSImpl) o).getFirstChild() != null ){
+
         return ((ElementNSImpl) o).getFirstChild().getNodeValue();
       }
     }
