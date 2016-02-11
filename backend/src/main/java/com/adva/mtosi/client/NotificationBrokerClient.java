@@ -74,7 +74,7 @@ public class NotificationBrokerClient {
     anyListType.getAny().add(je);
     commonEventInformationType.setVendorExtensions(anyListType);
 
-    message.getCommonEventInformation().add(commonEventInformationType);
+//    message.getCommonEventInformation().add(commonEventInformationType);
     notify.setMessage(message);
 
     Header header = new Header();

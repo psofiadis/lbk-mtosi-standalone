@@ -14,11 +14,11 @@ import com.adva.mtosi.gui.beans.Notification;
 import com.sun.org.apache.xerces.internal.dom.ElementNSImpl;
 import org.apache.log4j.Logger;
 import org.tmforum.mtop.fmw.wsdl.notc.v1_0.NotificationConsumer;
-import org.tmforum.mtop.fmw.xsd.cei.v1.CommonEventInformationType;
 import org.tmforum.mtop.fmw.xsd.hdr.v1.Header;
 import org.tmforum.mtop.fmw.xsd.notmsg.v1.Notify;
 import org.tmforum.mtop.nra.xsd.alm.v1.AlarmType;
 
+import javax.xml.bind.JAXBElement;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -33,9 +33,9 @@ public class NotificationConsumerImpl implements NotificationConsumer{
 
   @Override
   public void notify(Header mtopHeader, Notify mtopBody) {
-    for(CommonEventInformationType informationType : mtopBody.getMessage().getCommonEventInformation()) {
-      if (informationType instanceof AlarmType) {
-        AlarmType alarmType = (AlarmType) informationType;
+    for(JAXBElement informationType : mtopBody.getMessage().getCommonEventInformation()) {
+      if (informationType.getValue() instanceof AlarmType) {
+        AlarmType alarmType = (AlarmType)informationType.getValue();
         log.info("Output logger received: " + alarmType.toString());
         System.out.println(alarmType.getObjectName().getRdn().get(0));
         List<Object> objects = alarmType.getVendorExtensions().getAny();
@@ -50,7 +50,7 @@ public class NotificationConsumerImpl implements NotificationConsumer{
                 alarmType.getPerceivedSeverity().value(),
                 alarmType.getX733EventType(),
                 "True".equals(getVendorAttributeValue(objects, "Security")),
-                getVendorAttributeValue(objects, "Impairement"));
+                getVendorAttributeValue(objects, "Impairment"));
         NotificationMainHandler.notificationManager.addItem(notification);
       }
     }
