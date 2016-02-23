@@ -38,7 +38,7 @@ public class NotificationConsumerImpl implements NotificationConsumer{
 
         AlarmType alarmType = (AlarmType)informationType.getValue();
 
-        List<Object> objects = alarmType.getVendorExtensions().getAny();
+//        List<Object> objects = alarmType.getVendorExtensions().getAny();
         MtosiAddress address = new MtosiAddress(alarmType.getObjectName());
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
@@ -50,15 +50,15 @@ public class NotificationConsumerImpl implements NotificationConsumer{
                 address.getMdName(),address.getMeName(),address.getMtosiAddress(),
                 alarmType.getAdditionalText(),
                 nmsTime,
-                getVendorAttributeValue(objects, "Cause"),
-                getVendorAttributeValue(objects, "ModuleType"),
-                getVendorAttributeValue(objects, "EntityAlias"),
+                alarmType.getNativeProbableCause(),
+//                getVendorAttributeValue(objects, "ModuleType"),
+//                getVendorAttributeValue(objects, "EntityAlias"),
                 neTime,
-                getVendorAttributeValue(objects, "ServiceName"),
+                alarmType.getServiceAffecting().value(),
                 alarmType.getPerceivedSeverity().value(),
-                alarmType.getX733EventType(),
-                "True".equals(getVendorAttributeValue(objects, "Security")),
-                getVendorAttributeValue(objects, "Impairment")
+                alarmType.getX733EventType()
+//                "True".equals(getVendorAttributeValue(objects, "Security")),
+//                getVendorAttributeValue(objects, "Impairment")
         );
 
         NotificationMainHandler.notificationManager.addItem(notification);

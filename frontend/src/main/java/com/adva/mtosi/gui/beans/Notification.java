@@ -56,151 +56,89 @@ public class Notification extends Model {
 
     // Names of the Bound Bean Properties *************************************
 
+    public static final String PROPERTYNAME_ID = "notificationId";
+    public static final String PROPERTYNAME_SOURCE_TIME = "sourceTime";
+
     public static final String PROPERTYNAME_NE_NAME = "ne";
     public static final String PROPERTYNAME_MD_NAME = "md";
     public static final String PROPERTYNAME_AID = "aid";
-    public static final String PROPERTYNAME_DESCRIPTION = "description";
-    public static final String PROPERTYNAME_NMS_TIME = "nmsTime";
-    public static final String PROPERTYNAME_CATEGORY = "category";
-    public static final String PROPERTYNAME_SECURITY = "security";
-    public static final String PROPERTYNAME_IMPAIRMENT = "impairment";
-    public static final String PROPERTYNAME_SEVERITY = "severity";
 
-    public static final String PROPERTYNAME_CAUSE = "cause";
-    public static final String PROPERTYNAME_MODULE_TYPE = "moduleType";
-    public static final String PROPERTYNAME_ENTITY_ALIAS = "entityAlias";
-    public static final String PROPERTYNAME_TIME = "time";
-    public static final String PROPERTYNAME_SERVICE_NAME = "serviceName";
+    public static final String PROPERTYNAME_OS_TIME = "osTime";
+    public static final String PROPERTYNAME_LAYER_RATE = "layerRate";
+    public static final String PROPERTYNAME_PROBABLE_CAUSE = "probableCause";
+    public static final String PROPERTYNAME_PERCEIVED_SEVERITY = "perceivedSeverity";
+    public static final String PROPERTYNAME_SERVICE_AFFECTING = "serviceAffecting";
+    public static final String PROPERTYNAME_ADDITIONAL_TEXT = "additionalText";
+    public static final String PROPERTYNAME_NATIVE_PROBABLE_CAUSE = "nativeProbableCause";
+
+    public static final String PROPERTYNAME_CATEGORY = "category";
+
+//    public static final String PROPERTYNAME_SECURITY = "security";
+//    public static final String PROPERTYNAME_IMPAIRMENT = "impairment";
+//    public static final String PROPERTYNAME_MODULE_TYPE = "moduleType";
+//    public static final String PROPERTYNAME_ENTITY_ALIAS = "entityAlias";
+
+
 
     
     // Instance Fields ********************************************************
 
+    private String notificationId;
+    private String sourceTime;
     private String ne;
     private String md;
     private String aid;
-    private String description;
-    private String nmsTime;
-    private String cause;
-    private String moduleType;
-    private String entityAlias;
-    private String time;
-    private String serviceName;
-
-    /**
-     * This Notification's severity as associated with its ISBN,
-     * for example "Symphony No. 5".
-     */
-    private String severity;
-    
-    /**
-     * Holds this Notification's category, for example: "Albert Ayler",
-     * or "Berliner Philharmoniker".
-     */
+    private String osTime;
+    private String layerRate;
+    private String probableCause;
+    private String perceivedSeverity;
+    private String serviceAffecting;
+    private String additionalText;
+    private String nativeProbableCause;
     private String category;
 
-    /**
-     * Describes if this Notification is security music; in this case
-     * it has a impairment.
-     */
-    private boolean security;
-    
-    /**
-     * Holds the impairment of this Notification's music, for example "Beethoven".
-     * Available if and only if this is a security notification.
-     */
-    private String impairment;
-    
+    public Notification() {
+    }
 
     // Instance Creation ******************************************************
-    
-    /**
-     * Constructs an empty Notification: empty severity and category, not security
-     * and no impairment set.
-     */
-    public Notification() {
-        this("", "");
 
-    }
-
-    public Notification(String severity, String category, Boolean security, String impairment) {
-        setSeverity(severity);
-        setCategory(category);
-        setSecurity(security);
-        setImpairment(impairment);
-    }
-
-    public Notification(String md, String ne, String aid, String desc, String nmsTime,
-                        String cause, String moduleType, String entityAlias, String time, String serviceName,
-                        String severity, String category, Boolean security, String impairment) {
+    public Notification(String md, String ne, String aid, String additionalText, String osTime, String nativeProbableCause,
+//                        String moduleType, String entityAlias,
+                        String sourceTime, String serviceName, String perceivedSeverity, String category
+//                        Boolean security, String impairment
+    ) {
         setMd(md);
         setNe(ne);
         setAid(aid);
-        setDescription(desc);
-        setNmsTime(nmsTime);
-        setCause(cause);
-        setModuleType(moduleType);
-        setEntityAlias(entityAlias);
-        setTime(time);
-        setServiceName(serviceName);
-        setSeverity(severity);
+        setAdditionalText(additionalText);
+        setOsTime(osTime);
+        setNativeProbableCause(nativeProbableCause);
+//        setModuleType(moduleType);
+//        setEntityAlias(entityAlias);
+        setSourceTime(sourceTime);
+        setServiceAffecting(serviceName);
+        setPerceivedSeverity(perceivedSeverity);
         setCategory(category);
-        setSecurity(security);
-        setImpairment(impairment);
-    }
-    
-    
-    private Notification(String severity, String category) {
-        setSeverity(severity);
-        setCategory(category);
-        setSecurity(false);
-        setImpairment(null);
+//        setSecurity(security);
+//        setImpairment(impairment);
     }
 
     // Accessors **************************************************************
-    
-    
-    /**
-     * Returns this notification's severity, for example "A Love Supreme",
-     * or "Symphony No. 5".
-     * 
-     * @return this notification's severity.
-     */
-    public String getSeverity() {
-        return severity;
-    }
-    
 
-    /**
-     * Returns this notification's category, for example "Albert Ayler"
-     * or "Berliner Philharmoniker". 
-     * 
-     * @return this notification's category.
-     */
-    public String getCategory() {
-        return category;
+    public String getNotificationId() {
+        return notificationId;
     }
-    
-    
-    /**
-     * Answers whether this is a security notification or not.
-     * 
-     * @return true if this notification is security, false if not
-     */
-    public boolean isSecurity() {
-        return security;
+
+    public void setNotificationId(String notificationId) {
+        this.notificationId = notificationId;
     }
-    
-    
-    /**
-     * Returns this notification's impairment - if any, for example "Richard Wagner".
-     * A impairment is available if and only if this is a security notification.
-     * 
-     * @return the impairment of this notification's music.
-     * 
-     * @see #isSecurity
-     */
-    public String getImpairment() {
-        return impairment;
+
+    public String getSourceTime() {
+        return sourceTime;
+    }
+
+    public void setSourceTime(String sourceTime) {
+        this.sourceTime = sourceTime;
     }
 
     public String getNe() {
@@ -227,138 +165,90 @@ public class Notification extends Model {
         this.aid = aid;
     }
 
-    public String getDescription() {
-        return description;
+    public String getOsTime() {
+        return osTime;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setOsTime(String osTime) {
+        this.osTime = osTime;
     }
 
-    public String getNmsTime() {
-        return nmsTime;
+    public String getLayerRate() {
+        return layerRate;
     }
 
-    public void setNmsTime(String nmsTime) {
-        this.nmsTime = nmsTime;
+    public void setLayerRate(String layerRate) {
+        this.layerRate = layerRate;
     }
 
-    public String getCause() {
-        return cause;
+    public String getProbableCause() {
+        return probableCause;
     }
 
-    public void setCause(String cause) {
-        this.cause = cause;
+    public void setProbableCause(String probableCause) {
+        this.probableCause = probableCause;
     }
 
-    public String getModuleType() {
-        return moduleType;
+    public String getPerceivedSeverity() {
+        return perceivedSeverity;
     }
 
-    public void setModuleType(String moduleType) {
-        this.moduleType = moduleType;
+    public void setPerceivedSeverity(String perceivedSeverity) {
+        this.perceivedSeverity = perceivedSeverity;
     }
 
-    public String getEntityAlias() {
-        return entityAlias;
+    public String getServiceAffecting() {
+        return serviceAffecting;
     }
 
-    public void setEntityAlias(String entityAlias) {
-        this.entityAlias = entityAlias;
+    public void setServiceAffecting(String serviceAffecting) {
+        this.serviceAffecting = serviceAffecting;
     }
 
-    public String getTime() {
-        return time;
+    public String getAdditionalText() {
+        return additionalText;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setAdditionalText(String additionalText) {
+        this.additionalText = additionalText;
     }
 
-    public String getServiceName() {
-        return serviceName;
+    public String getNativeProbableCause() {
+        return nativeProbableCause;
     }
 
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
+    public void setNativeProbableCause(String nativeProbableCause) {
+        this.nativeProbableCause = nativeProbableCause;
     }
 
-    /**
-     * Sets this notification's severity and notifies observers
-     * if the severity changed.
-     * 
-     * @param severity   The severity to set.
-     */
-    public void setSeverity(String severity) {
-        Object oldValue = getSeverity();
-        this.severity = severity;
-        firePropertyChange(PROPERTYNAME_SEVERITY, oldValue, severity);
+    public String getCategory() {
+        return category;
     }
-    
-    
-    /**
-     * Sets a new category and notifies observers if the category changed.
-     * 
-     * @param category  The category to set.
-     */
+
     public void setCategory(String category) {
-        String oldValue = getCategory();
         this.category = category;
-        firePropertyChange(PROPERTYNAME_CATEGORY, oldValue, category);
     }
-    
 
-    /**
-     * Sets this notification's security property and notifies observers
-     * about changes. If not security the impairment is set to <code>null</code>.
-     * 
-     * @param security   true to indicate that this notification is security
-     */
-    public void setSecurity(boolean security) {
-        boolean oldValue = isSecurity();
-        this.security = security;
-        firePropertyChange(PROPERTYNAME_SECURITY, oldValue, security);
-        if (!security) {
-            setImpairment(null);
-        }
-    }
-    
 
-    /**
-     * Sets this notification's impairment and notifies observers if it has changed.
-     * A impairment shall be set only if this is a security notification.
-     * 
-     * @param impairment   The impairment to set.
-     * 
-     * @see #isSecurity
-     */
-    public void setImpairment(String impairment) {
-        Object oldValue = getImpairment();
-        this.impairment = impairment;
-        firePropertyChange(PROPERTYNAME_IMPAIRMENT, oldValue, impairment);
-    }
-    
-    
     // Misc *******************************************************************
-    
-    /**
-     * Returns a string representation of this notification
-     * that contains the property values in a single text line.
-     * 
-     * @return a string representation of this notification
-     */
-    public String toString() {
-        StringBuffer buffer = new StringBuffer("Notification");
-        buffer.append(" [severity=");
-        buffer.append(getSeverity());
-        buffer.append("; category=");
-        buffer.append(getCategory());
-        buffer.append("; security=");
-        buffer.append(isSecurity());
-        buffer.append("; impairment=");
-        buffer.append(getImpairment());
-        buffer.append("]");
-        return buffer.toString();
-    }
 
+
+    @Override
+    public String toString() {
+        return "Notification{" +
+            "notificationId='" + notificationId + '\'' +
+            ", sourceTime='" + sourceTime + '\'' +
+            ", ne='" + ne + '\'' +
+            ", md='" + md + '\'' +
+            ", aid='" + aid + '\'' +
+            ", osTime='" + osTime + '\'' +
+            ", layerRate='" + layerRate + '\'' +
+            ", probableCause='" + probableCause + '\'' +
+            ", perceivedSeverity='" + perceivedSeverity + '\'' +
+            ", serviceAffecting='" + serviceAffecting + '\'' +
+            ", additionalText='" + additionalText + '\'' +
+            ", nativeProbableCause='" + nativeProbableCause + '\'' +
+            ", category='" + category + '\'' +
+            '}';
+    }
 }

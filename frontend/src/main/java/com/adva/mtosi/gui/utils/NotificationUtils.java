@@ -86,9 +86,13 @@ public final class NotificationUtils {
      */
     public static final class NotificationTableModel extends AbstractTableAdapter {
         
-        private static final String[] COLUMNS = {"MD","Source","AID","Description","NMS Time",
-                "Cause", "Module Type", "Entity Alias", "Time", "Service Name",
-                "Category", "Severity", "Security", "Impairment"};
+        private static final String[] COLUMNS = {"MD", "NE", "AID", "Additional Text", "Os Time",
+            "Native Probable Cause","Probable Cause",
+//            "Module Type", "Entity Alias",
+            "Source Time", "Service Affecting",
+            "Category", "Perceived Severity"
+            //"Security", "Impairment"
+        };
         private final ListModel listModel;
         private NotificationTableModel(ListModel listModel) {
             super(listModel, COLUMNS);
@@ -106,17 +110,14 @@ public final class NotificationUtils {
                 case 0:  return notification.getMd();
                 case 1:  return notification.getNe();
                 case 2:  return notification.getAid();
-                case 3:  return notification.getDescription();
-                case 4:  return notification.getNmsTime();
-                case 5:  return notification.getCause();
-                case 6:  return notification.getModuleType();
-                case 7:  return notification.getEntityAlias();
-                case 8:  return notification.getTime();
-                case 9:  return notification.getServiceName();
-                case 10 : return notification.getCategory();
-                case 11 : return notification.getSeverity();
-                case 12 : return Boolean.valueOf(notification.isSecurity());
-                case 13 : return notification.getImpairment();
+                case 3:  return notification.getAdditionalText();
+                case 4:  return notification.getOsTime();
+                case 5:  return notification.getNativeProbableCause();
+                case 6:  return notification.getProbableCause();
+                case 7:  return notification.getSourceTime();
+                case 8:  return notification.getServiceAffecting();
+                case 9:  return notification.getCategory();
+                case 10 : return notification.getPerceivedSeverity();
                 default :
                     throw new IllegalStateException("Unknown column");
             }
