@@ -104,7 +104,7 @@ public class Notification extends Model {
 
     public Notification(String md, String ne, String aid, String additionalText, String osTime, String nativeProbableCause,
 //                        String moduleType, String entityAlias,
-                        String sourceTime, String serviceName, String perceivedSeverity, String category
+                        String sourceTime, String serviceName, String perceivedSeverity, String category, String notificationId
 //                        Boolean security, String impairment
     ) {
         setMd(md);
@@ -119,6 +119,7 @@ public class Notification extends Model {
         setServiceAffecting(serviceName);
         setPerceivedSeverity(perceivedSeverity);
         setCategory(category);
+        setNotificationId(notificationId);
 //        setSecurity(security);
 //        setImpairment(impairment);
     }

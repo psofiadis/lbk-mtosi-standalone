@@ -56,7 +56,8 @@ public class NotificationConsumerImpl implements NotificationConsumer{
                 neTime,
                 alarmType.getServiceAffecting().value(),
                 alarmType.getPerceivedSeverity().value(),
-                alarmType.getX733EventType()
+                alarmType.getX733EventType(),
+            alarmType.getNotificationId()
 //                "True".equals(getVendorAttributeValue(objects, "Security")),
 //                getVendorAttributeValue(objects, "Impairment")
         );

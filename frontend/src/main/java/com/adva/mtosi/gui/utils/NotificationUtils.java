@@ -90,7 +90,7 @@ public final class NotificationUtils {
             "Native Probable Cause","Probable Cause",
 //            "Module Type", "Entity Alias",
             "Source Time", "Service Affecting",
-            "Category", "Perceived Severity"
+            "Category", "Perceived Severity", "Notification Id"
             //"Security", "Impairment"
         };
         private final ListModel listModel;
@@ -118,6 +118,7 @@ public final class NotificationUtils {
                 case 8:  return notification.getServiceAffecting();
                 case 9:  return notification.getCategory();
                 case 10 : return notification.getPerceivedSeverity();
+                case 11 : return notification.getNotificationId();
                 default :
                     throw new IllegalStateException("Unknown column");
             }
