@@ -10,6 +10,15 @@
         </layout>
     </appender>
 
+    <appender name="csvlog" class="org.apache.log4j.RollingFileAppender">
+        <param name="file" value="./logs/csv.log"/>
+        <param name="Append" value="false" />
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%m%n"/>
+        </layout>
+    </appender>
+
     <appender name="output" class="org.apache.log4j.ConsoleAppender">
         <param name="target" value="System.out"/>
         <layout class="org.apache.log4j.PatternLayout">
@@ -21,6 +30,11 @@
     <logger name="com.adva.mtosi.server" additivity="false">
         <level value="debug"/>
         <appender-ref ref="application"/>
+    </logger>
+
+    <logger name="com.adva.mtosi.log" additivity="false">
+        <level value="debug"/>
+        <appender-ref ref="csvlog"/>
     </logger>
 
     <logger name="org.apache.cxf" additivity="false">

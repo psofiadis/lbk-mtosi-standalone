@@ -106,12 +106,14 @@ public final class NotificationManager {
 
     public Notification createItem(String md, String ne,String aid, String text, String osTime,String nativeProbableCause,
 //                                   String moduleType, String entityAlias,
-                                   String sourceTime, String serviceName,String perceivedSeverity, String category, String notificationId
+                                   String sourceTime, String serviceName,String perceivedSeverity, String category, String notificationId,
+                                   String probableCause, String layerRate
 //                                   Boolean security, String impairment
     ) {
         return new Notification(md, ne, aid, text,osTime, nativeProbableCause,
 //            moduleType, entityAlias,
-            sourceTime, serviceName, perceivedSeverity,category,notificationId
+            sourceTime, serviceName, perceivedSeverity,category,notificationId,
+            probableCause, layerRate
 //            security,impairment
         );
     }

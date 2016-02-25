@@ -11,6 +11,8 @@ package com.adva.mtosi.server;
 import com.adva.mtosi.Utils.MtosiAddress;
 import com.adva.mtosi.gui.NotificationMainHandler;
 import com.adva.mtosi.gui.beans.Notification;
+import com.adva.mtosi.log.CSVCreator;
+import com.adva.mtosi.log.CSVWriter;
 import com.sun.org.apache.xerces.internal.dom.ElementNSImpl;
 import org.apache.log4j.Logger;
 import org.tmforum.mtop.fmw.wsdl.notc.v1_0.NotificationConsumer;
@@ -46,6 +48,7 @@ public class NotificationConsumerImpl implements NotificationConsumer{
         String nmsTime = formatter.format(alarmType.getOsTime().toGregorianCalendar().getTime());
         String neTime = formatter.format(alarmType.getSourceTime().toGregorianCalendar().getTime());
 
+
         Notification notification = NotificationMainHandler.notificationManager.createItem(
                 address.getMdName(),address.getMeName(),address.getMtosiAddress(),
                 alarmType.getAdditionalText(),
@@ -57,9 +60,27 @@ public class NotificationConsumerImpl implements NotificationConsumer{
                 alarmType.getServiceAffecting().value(),
                 alarmType.getPerceivedSeverity().value(),
                 alarmType.getX733EventType(),
-            alarmType.getNotificationId()
+            alarmType.getNotificationId(),
+            null,//alarmType.getProbableCause().toString(),
+            null //alarmType.getLayerRate()
 //                "True".equals(getVendorAttributeValue(objects, "Security")),
 //                getVendorAttributeValue(objects, "Impairment")
+        );
+
+        CSVWriter.info(
+            new CSVCreator(
+                address.getMdName(),address.getMeName(),address.getMtosiAddress(),
+                alarmType.getAdditionalText(),
+                nmsTime,
+                alarmType.getNativeProbableCause(),
+                neTime,
+                alarmType.getServiceAffecting().value(),
+                alarmType.getPerceivedSeverity().value(),
+                alarmType.getX733EventType(),
+                alarmType.getNotificationId(),
+        null,//alarmType.getProbableCause().toString(),
+            null //alarmType.getLayerRate()
+            )
         );
 
         NotificationMainHandler.notificationManager.addItem(notification);
