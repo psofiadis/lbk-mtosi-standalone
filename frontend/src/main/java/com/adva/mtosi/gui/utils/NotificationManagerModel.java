@@ -77,6 +77,7 @@ public final class NotificationManagerModel {
     private Action newAction;
     private Action editAction;
     private Action deleteAction;
+    private Action sendRequestAction;
 
     // Instance Creation ******************************************************
     
@@ -105,6 +106,7 @@ public final class NotificationManagerModel {
         newAction = new NewAction();
         editAction = new EditAction();
         deleteAction = new DeleteAction();
+        sendRequestAction = new SendRequestAction();
         updateActionEnablement();
     }
     
@@ -185,8 +187,11 @@ public final class NotificationManagerModel {
         Object newNotification = createAndAddItem();
         getNotificationSelection().setSelection(newNotification);
     }
-    
-    
+
+    private void doSendRequest() {
+    }
+
+
     /**
      * Edits the selected item and marks it as changed, 
      * if the editor dialog has not been canceled.
@@ -278,6 +283,17 @@ public final class NotificationManagerModel {
         
         public void actionPerformed(ActionEvent e) {
             doNew();
+        }
+    }
+
+    private final class SendRequestAction extends AbstractAction {
+
+        private SendRequestAction() {
+            super("Send\u2026");
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            doSendRequest();
         }
     }
 

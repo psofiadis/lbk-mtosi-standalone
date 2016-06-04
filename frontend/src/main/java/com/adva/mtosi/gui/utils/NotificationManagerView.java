@@ -64,6 +64,7 @@ public final class NotificationManagerView {
     private JButton newButton;
     private JButton editButton;
     private JButton deleteButton;
+    private JButton sendRequestButton;
 
  
     // Instance Creation ******************************************************
@@ -93,6 +94,7 @@ public final class NotificationManagerView {
         newButton = new JButton(notificationManagerModel.getNewAction());
         editButton = new JButton(notificationManagerModel.getEditAction());
         deleteButton = new JButton(notificationManagerModel.getDeleteAction());
+        sendRequestButton = new JButton(notificationManagerModel.getDeleteAction());
     }
     
     private void initEventHandling() {

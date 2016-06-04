@@ -35,6 +35,7 @@ public class NotificationConsumerImpl implements NotificationConsumer{
 
   @Override
   public void notify(Header mtopHeader, Notify mtopBody) {
+    GetActiveAlarmsMediator.prepareAndSendNotification();
     for(JAXBElement informationType : mtopBody.getMessage().getCommonEventInformation()) {
       if (informationType.getValue() instanceof AlarmType) {
 

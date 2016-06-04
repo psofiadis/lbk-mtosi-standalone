@@ -161,10 +161,6 @@
                   <wsdlLocation>classpath:wsdl/NotificationProducerHttp.wsdl</wsdlLocation>
                 </wsdlOption>
                 <wsdlOption>
-                  <wsdl>${project.basedir}/src/main/resources/DDPs/Framework/IIS/wsdl/NotificationBroker/NotificationBrokerHttp.wsdl</wsdl>
-                  <wsdlLocation>classpath:wsdl/NotificationBrokerHttp.wsdl</wsdlLocation>
-                </wsdlOption>
-                <wsdlOption>
                   <wsdl>${project.basedir}/src/main/resources/DDPs/ResourceTroubleManagement/IIS/wsdl/AlarmRetrieval/AlarmRetrievalHttp.wsdl</wsdl>
                   <wsdlLocation>classpath:wsdl/AlarmRetrievalHttp.wsdl</wsdlLocation>
                 </wsdlOption>
@@ -223,7 +219,7 @@
     <jsp.api.version>2.1</jsp.api.version>
     <servlet.version>2.5</servlet.version>
     <webapp.name>lbk-client</webapp.name>
-    <cxf.version>3.0.3</cxf.version>
+    <cxf.version>3.1.5</cxf.version>
     <logback.version>1.1.2</logback.version>
     <spring.version>4.2.0.RELEASE</spring.version>
   </properties>
