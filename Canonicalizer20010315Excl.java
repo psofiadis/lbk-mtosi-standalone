@@ -50,7 +50,7 @@ import org.xml.sax.SAXException;
  * <i>THIS </i> implementation is a complete rewrite of the algorithm.
  *
  * @author Christian Geuer-Pollmann <geuerp@apache.org>
- * @version $Revision: 1147448 $
+ * @version $Revision: 1558567 $
  * @see <a href="http://www.w3.org/TR/2002/REC-xml-exc-c14n-20020718/ Exclusive#">
  *          XML Canonicalization, Version 1.0</a>
  */
@@ -64,6 +64,7 @@ public abstract class Canonicalizer20010315Excl extends CanonicalizerBase {
    * the inclusive namespaces.
    */
   private SortedSet<String> inclusiveNSSet;
+  private boolean propagateDefaultNamespace = false;
 
   private final SortedSet<Attr> result = new TreeSet<Attr>(COMPARE);
 
@@ -99,6 +100,22 @@ public abstract class Canonicalizer20010315Excl extends CanonicalizerBase {
   public byte[] engineCanonicalizeSubTree(
       Node rootNode, String inclusiveNamespaces
   ) throws CanonicalizationException {
+    return engineCanonicalizeSubTree(rootNode, inclusiveNamespaces, null);
+  }
+
+  /**
+   * Method engineCanonicalizeSubTree
+   *  @inheritDoc
+   * @param rootNode
+   * @param inclusiveNamespaces
+   * @param propagateDefaultNamespace If true the default namespace will be propagated to the c14n-ized root element
+   *
+   * @throws CanonicalizationException
+   */
+  public byte[] engineCanonicalizeSubTree(
+      Node rootNode, String inclusiveNamespaces, boolean propagateDefaultNamespace
+  ) throws CanonicalizationException {
+    this.propagateDefaultNamespace = propagateDefaultNamespace;
     return engineCanonicalizeSubTree(rootNode, inclusiveNamespaces, null);
   }
 
@@ -177,17 +194,15 @@ public abstract class Canonicalizer20010315Excl extends CanonicalizerBase {
           }
           // Add to the result.
           result.add(attribute);
-        } else if (!(XML.equals(NName) && XML_LANG_URI.equals(NNodeValue))
-            && ns.addMapping(NName, NNodeValue, attribute)
-            && C14nHelper.namespaceIsRelative(NNodeValue)) {
-          // The default mapping for xml must not be output.
-          // New definition check if it is relative.
-          Object exArgs[] = {element.getTagName(), NName, attribute.getNodeValue()};
-//          throw new CanonicalizationException(
-//              "c14n.Canonicalizer.RelativeNamespace", exArgs
-//          );
         }
       }
+    }
+    if (propagateDefaultNamespace && ns.getLevel() == 1 &&
+        inclusiveNSSet.contains(XMLNS) &&
+        ns.getMappingWithoutRendered(XMLNS) == null) {
+      ns.removeMapping(XMLNS);
+      ns.addMapping(
+          XMLNS, "", getNullNode(element.getOwnerDocument()));
     }
     String prefix = null;
     if (element.getNamespaceURI() != null
@@ -261,22 +276,7 @@ public abstract class Canonicalizer20010315Excl extends CanonicalizerBase {
             Node n = ns.addMappingAndRender(NName, NNodeValue, attribute);
             if (n != null) {
               result.add((Attr)n);
-//              if (C14nHelper.namespaceIsRelative(attribute)) {
-//                Object exArgs[] = { element.getTagName(), NName, attribute.getNodeValue() };
-//                throw new CanonicalizationException(
-//                    "c14n.Canonicalizer.RelativeNamespace", exArgs
-//                );
-//              }
             }
-          }
-
-          if (ns.addMapping(NName, NNodeValue, attribute)
-              && C14nHelper.namespaceIsRelative(NNodeValue)) {
-            // New definition check if it is relative
-            Object exArgs[] = { element.getTagName(), NName, attribute.getNodeValue() };
-//            throw new CanonicalizationException(
-//                "c14n.Canonicalizer.RelativeNamespace", exArgs
-//            );
           }
         }
       }
@@ -288,7 +288,7 @@ public abstract class Canonicalizer20010315Excl extends CanonicalizerBase {
       if (xmlns != null && !isVisible(xmlns)) {
         // There is a definition but the xmlns is not selected by the
         // xpath. then xmlns=""
-        ns.addMapping(XMLNS, "", nullNode);
+        ns.addMapping(XMLNS, "", getNullNode(xmlns.getOwnerDocument()));
       }
 
       String prefix = null;
