@@ -104,7 +104,6 @@ public class GetActiveAlarmsMediator implements AlarmRetrieval {
     outProps.put("encryptionPropFile", "client-crypto.properties");
     outProps.put("signatureKeyIdentifier", "DirectReference");
     outProps.put("encryptionUser", "nms-server-key");
-//    outProps.put("use200512Namespace", "false");
     outProps.put("signatureAlgorithm", "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256");
     outProps.put("passwordCallbackClass", "com.adva.mtosi.server.config.ClientPasswordCallback");
     outProps.put("signatureParts", "{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;{Element}{http://schemas.xmlsoap.org/soap/envelope/}Body");
@@ -116,8 +115,9 @@ public class GetActiveAlarmsMediator implements AlarmRetrieval {
   private static Map<String, Object> getInProps(){
     Map<String, Object> inProps = new HashMap<>();
     inProps.put("action", "Timestamp Signature Encrypt");
-//    inProps.put("use200512Namespace", "false");
     inProps.put("signaturePropFile", "client-crypto.properties");
+    //USE allowRSA15KeyTransportAlgorithm for backward compatibility with cxf 2.5.2
+    inProps.put("allowRSA15KeyTransportAlgorithm", "true");
     inProps.put("decryptionPropFile", "client-crypto.properties");
     inProps.put("signatureAlgorithm", "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256");
     inProps.put("passwordCallbackClass", "com.adva.mtosi.server.config.ClientPasswordCallback");

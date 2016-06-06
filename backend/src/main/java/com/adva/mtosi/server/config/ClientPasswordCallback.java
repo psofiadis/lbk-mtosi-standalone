@@ -7,8 +7,8 @@
  */
 package com.adva.mtosi.server.config;
 
-import org.apache.ws.security.WSPasswordCallback;
-//import org.apache.wss4j.common.ext.WSPasswordCallback;
+//import org.apache.ws.security.WSPasswordCallback;
+import org.apache.wss4j.common.ext.WSPasswordCallback;
 
 import java.io.IOException;
 import javax.security.auth.callback.Callback;

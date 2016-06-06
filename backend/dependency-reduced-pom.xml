@@ -199,7 +199,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>4.0.2.RELEASE</version>
+      <version>4.2.0.RELEASE</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -219,9 +219,9 @@
     <jsp.api.version>2.1</jsp.api.version>
     <servlet.version>2.5</servlet.version>
     <webapp.name>lbk-client</webapp.name>
-    <cxf.version>2.5.2</cxf.version>
+    <cxf.version>3.1.5</cxf.version>
     <logback.version>1.1.2</logback.version>
-    <spring.version>4.0.2.RELEASE</spring.version>
+    <spring.version>4.2.0.RELEASE</spring.version>
   </properties>
 </project>
 
