@@ -118,6 +118,7 @@ public class GetActiveAlarmsMediator implements AlarmRetrieval {
     inProps.put("signaturePropFile", "client-crypto.properties");
     //USE allowRSA15KeyTransportAlgorithm for backward compatibility with cxf 2.5.2
     inProps.put("allowRSA15KeyTransportAlgorithm", "true");
+
     inProps.put("decryptionPropFile", "client-crypto.properties");
     inProps.put("signatureAlgorithm", "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256");
     inProps.put("passwordCallbackClass", "com.adva.mtosi.server.config.ClientPasswordCallback");
