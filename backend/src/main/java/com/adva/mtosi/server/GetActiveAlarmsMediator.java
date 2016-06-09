@@ -133,7 +133,7 @@ public class GetActiveAlarmsMediator implements AlarmRetrieval {
     rdn1.setType("MD");
     rdn1.setValue("ADVA/Network");
     rdn2.setType("ME");
-    rdn2.setValue("FSP3000_43");
+    rdn2.setValue("f7_105_42");
     namingAttributes.getRdn().add(rdn1);
     namingAttributes.getRdn().add(rdn2);
     return namingAttributes;

@@ -15,7 +15,7 @@
         <logback.version>1.1.2</logback.version>
         <junit.version>4.12</junit.version>
         <cxf.version>3.1.5</cxf.version>
-        <spring.version>4.2.0.RELEASE</spring.version>
+        <spring.version>4.0.2.RELEASE</spring.version>
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
         <jetty-maven-plugin.version>9.3.1-SNAPSHOT</jetty-maven-plugin.version>
         <maven-failsafe-plugin.version>2.19.1</maven-failsafe-plugin.version>
@@ -53,6 +53,11 @@
         <!-- CXF -->
         <dependency>
             <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-core</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxws</artifactId>
             <version>${cxf.version}</version>
         </dependency>
@@ -61,33 +66,56 @@
             <artifactId>cxf-rt-transports-http</artifactId>
             <version>${cxf.version}</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.apache.ws.security</groupId>-->
-            <!--<artifactId>wss4j</artifactId>-->
-            <!--<version>1.6.4</version>-->
-            <!--<exclusions>-->
-                <!--<exclusion>-->
-                    <!--<artifactId>org.apache.santuario</artifactId>-->
-                    <!--<groupId>xmlsec</groupId>-->
-                <!--</exclusion>-->
-            <!--</exclusions>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-ws-security</artifactId>
             <version>${cxf.version}</version>
-            <!--<exclusions>-->
-                <!--<exclusion>-->
-                    <!--<artifactId>xmlsec</artifactId>-->
-                    <!--<groupId>org.apache.santuario</groupId>-->
-                <!--</exclusion>-->
-            <!--</exclusions>-->
+            <exclusions>
+                <exclusion>
+                    <artifactId>opensaml-saml-impl</artifactId>
+                    <groupId>org.opensaml</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>cxf-rt-security-saml</artifactId>
+                    <groupId>org.opensaml</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>opensaml-xacml-impl</artifactId>
+                    <groupId>org.opensaml</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>opensaml-xacml-saml-impl</artifactId>
+                    <groupId>org.opensaml</groupId>
+                </exclusion>
+                    <!-- Exclude Groovy because of classpath issue -->
+                    <exclusion>
+                        <groupId>org.apache.geronimo.specs</groupId>
+                        <artifactId>geronimo-javamail_1.4_spec</artifactId>
+                    </exclusion>
+            </exclusions>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.apache.santuario</groupId>-->
-            <!--<artifactId>xmlsec</artifactId>-->
-            <!--<version>1.5.3</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-tools-wsdlto-core</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-tools-wsdlto-databinding-jaxb</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-tools-wsdlto-frontend-jaxws</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <!-- Jetty -->
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
@@ -113,11 +141,6 @@
             <artifactId>apache-jsp</artifactId>
             <version>9.3.6.v20151106</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.apache.ws.security</groupId>-->
-            <!--<artifactId>wss4j</artifactId>-->
-            <!--<version>1.6.19</version>-->
-        <!--</dependency>-->
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -175,11 +198,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.apache.santuario</groupId>-->
-            <!--<artifactId>xmlsec</artifactId>-->
-            <!--<version>1.4.8</version>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>com.adva.nbi</groupId>
             <artifactId>frontend</artifactId>
