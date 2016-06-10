@@ -25,10 +25,14 @@ public class ClientPasswordCallback implements CallbackHandler {
       WSPasswordCallback pc = (WSPasswordCallback) callbacks[i];
 
       if (pc.getUsage() == WSPasswordCallback.SIGNATURE
-          || pc.getUsage() == WSPasswordCallback.DECRYPT)
+          || pc.getUsage() == WSPasswordCallback.DECRYPT) {
 
         if (pc.getIdentifier().equals("nms-client-key"))
           pc.setPassword("A1b.5*_B81chgme78");
+      }else if(pc.getUsage() == WSPasswordCallback.USERNAME_TOKEN){
+
+          pc.setPassword("password");
+      }
     }
 
   }

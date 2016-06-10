@@ -87,7 +87,8 @@ public class GetActiveAlarmsMediator implements AlarmRetrieval {
 
     BindingProvider bp = (BindingProvider) port;
     Map<String, Object> context = bp.getRequestContext();
-    context.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://advaoptical.com:8080/mtosi/v2/ResourceTroubleManagement/AlarmRetrieval");
+    context.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "https://advaoptical.com:8443/mtosi/v2/ResourceTroubleManagement/AlarmRetrieval");
+//    context.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:8080/mtosi/v2/ResourceTroubleManagement/AlarmRetrieval");
     try {
       AlarmListType response = port.getActiveAlarms(header, activeAlarmsRequest);
       log.info(response);
@@ -98,29 +99,32 @@ public class GetActiveAlarmsMediator implements AlarmRetrieval {
 
   private static Map<String, Object> getOutProps(){
     Map<String, Object> outProps = new HashMap<>();
-    outProps.put("action", "Timestamp Signature Encrypt");
+    outProps.put("action", "UsernameToken Timestamp Signature");
+    outProps.put("passwordType", "PasswordDigest");
     outProps.put("user", "nms-client-key");
     outProps.put("signaturePropFile", "client-crypto.properties");
-    outProps.put("encryptionPropFile", "client-crypto.properties");
-    outProps.put("signatureKeyIdentifier", "DirectReference");
-    outProps.put("encryptionUser", "nms-server-key");
-    outProps.put("signatureAlgorithm", "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256");
+//    outProps.put("encryptionPropFile", "client-crypto.properties");
+//    outProps.put("signatureKeyIdentifier", "DirectReference");
+//    outProps.put("encryptionUser", "nms-server-key");
+//    outProps.put("signatureAlgorithm", "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256");
     outProps.put("passwordCallbackClass", "com.adva.mtosi.server.config.ClientPasswordCallback");
-    outProps.put("signatureParts", "{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;{Element}{http://schemas.xmlsoap.org/soap/envelope/}Body");
-    outProps.put("encryptionParts", "{Element}{http://www.w3.org/2000/09/xmldsig#}Signature;{Content}{http://schemas.xmlsoap.org/soap/envelope/}Body");
-    outProps.put("encryptionSymAlgorithm", "http://www.w3.org/2001/04/xmlenc#tripledes-cbc");
+//    outProps.put("signatureParts", "{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;{Element}{http://schemas.xmlsoap.org/soap/envelope/}Body");
+//    outProps.put("signatureParts", "{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}UsernameTokenSignature");
+//    outProps.put("encryptionParts", "{Element}{http://www.w3.org/2000/09/xmldsig#}Signature;{Content}{http://schemas.xmlsoap.org/soap/envelope/}Body");
+//    outProps.put("encryptionSymAlgorithm", "http://www.w3.org/2001/04/xmlenc#tripledes-cbc");
     return outProps;
   }
 
   private static Map<String, Object> getInProps(){
     Map<String, Object> inProps = new HashMap<>();
-    inProps.put("action", "Timestamp Signature Encrypt");
+    inProps.put("action", "UsernameToken Timestamp Signature");
+    inProps.put("passwordType", "PasswordDigest");
     inProps.put("signaturePropFile", "client-crypto.properties");
     //USE allowRSA15KeyTransportAlgorithm for backward compatibility with cxf 2.5.2
-    inProps.put("allowRSA15KeyTransportAlgorithm", "true");
+//    inProps.put("allowRSA15KeyTransportAlgorithm", "true");
 
-    inProps.put("decryptionPropFile", "client-crypto.properties");
-    inProps.put("signatureAlgorithm", "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256");
+//    inProps.put("decryptionPropFile", "client-crypto.properties");
+//    inProps.put("signatureAlgorithm", "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256");
     inProps.put("passwordCallbackClass", "com.adva.mtosi.server.config.ClientPasswordCallback");
 
     return inProps;
