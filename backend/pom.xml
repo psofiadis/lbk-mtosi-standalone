@@ -15,7 +15,7 @@
         <logback.version>1.1.2</logback.version>
         <junit.version>4.12</junit.version>
         <cxf.version>3.1.5</cxf.version>
-        <spring.version>4.0.2.RELEASE</spring.version>
+        <spring.version>4.2.2.RELEASE</spring.version>
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
         <jetty-maven-plugin.version>9.3.1-SNAPSHOT</jetty-maven-plugin.version>
         <maven-failsafe-plugin.version>2.19.1</maven-failsafe-plugin.version>
@@ -92,6 +92,10 @@
                 <exclusion>
                     <artifactId>opensaml-xacml-saml-impl</artifactId>
                     <groupId>org.opensaml</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>cxf-rt-security-saml</artifactId>
+                    <groupId>org.apache.cxf</groupId>
                 </exclusion>
                     <!-- Exclude Groovy because of classpath issue -->
                     <exclusion>

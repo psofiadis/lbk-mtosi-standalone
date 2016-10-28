@@ -99,25 +99,25 @@ public class GetActiveAlarmsMediator implements AlarmRetrieval {
 
   private static Map<String, Object> getOutProps(){
     Map<String, Object> outProps = new HashMap<>();
-    outProps.put("action", "UsernameToken Timestamp Signature");
+//    outProps.put("action", "UsernameToken Timestamp Signature Encrypt");
+    outProps.put("action", "UsernameToken Timestamp");
     outProps.put("passwordType", "PasswordDigest");
     outProps.put("user", "nms-client-key");
     outProps.put("signaturePropFile", "client-crypto.properties");
-//    outProps.put("encryptionPropFile", "client-crypto.properties");
-//    outProps.put("signatureKeyIdentifier", "DirectReference");
-//    outProps.put("encryptionUser", "nms-server-key");
-//    outProps.put("signatureAlgorithm", "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256");
+    outProps.put("encryptionPropFile", "client-crypto.properties");
+    outProps.put("signatureKeyIdentifier", "DirectReference");
+    outProps.put("encryptionUser", "nms-server-key");
+    outProps.put("signatureAlgorithm", "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256");
     outProps.put("passwordCallbackClass", "com.adva.mtosi.server.config.ClientPasswordCallback");
-//    outProps.put("signatureParts", "{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;{Element}{http://schemas.xmlsoap.org/soap/envelope/}Body");
-//    outProps.put("signatureParts", "{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}UsernameTokenSignature");
-//    outProps.put("encryptionParts", "{Element}{http://www.w3.org/2000/09/xmldsig#}Signature;{Content}{http://schemas.xmlsoap.org/soap/envelope/}Body");
-//    outProps.put("encryptionSymAlgorithm", "http://www.w3.org/2001/04/xmlenc#tripledes-cbc");
+    outProps.put("signatureParts", "{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;{Element}{http://schemas.xmlsoap.org/soap/envelope/}Body");
+    outProps.put("encryptionParts", "{Element}{http://www.w3.org/2000/09/xmldsig#}Signature;{Content}{http://schemas.xmlsoap.org/soap/envelope/}Body");
+    outProps.put("encryptionSymAlgorithm", "http://www.w3.org/2001/04/xmlenc#tripledes-cbc");
     return outProps;
   }
 
   private static Map<String, Object> getInProps(){
     Map<String, Object> inProps = new HashMap<>();
-    inProps.put("action", "UsernameToken Timestamp Signature");
+    inProps.put("action", "UsernameToken Timestamp");
     inProps.put("passwordType", "PasswordDigest");
     inProps.put("signaturePropFile", "client-crypto.properties");
     //USE allowRSA15KeyTransportAlgorithm for backward compatibility with cxf 2.5.2
